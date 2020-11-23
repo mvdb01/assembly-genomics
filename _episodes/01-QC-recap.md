@@ -17,4 +17,4 @@ keypoints:
 - ""
 ---
 
-# De Novo assembly  workflows
+# *De Novo* assembly  workflows
