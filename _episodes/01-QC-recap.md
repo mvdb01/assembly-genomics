@@ -39,9 +39,9 @@ built under the assumption that the data will be provided in a specific format.
 
 # Starting with Data
 
-During this session we will work with sequencing reads coming from Illumina and Oxford Nanopore technology. Also here genomic DNA from *Escherichia coli* was used.
+During this session we will work with sequencing reads coming from a study of Trivedi *et all* [doi](https://dx.doi.org/10.3389%2Ffgene.2014.00111) were they used benchmark datasets generated from control samples across a range of genome sizes to illustrate that QC inferences made using draft assemblies are broadly equivalent to those made using a well-established reference. Multiple different organismes were sequenced but here we will use only a 600bp paired-end and a 2.5 kb mate pair library from *Escherichia coli* from illumina platform.
 
-As a first step we will inspect sequence data from the illumina platform. The data structure and do some quality control and filtering. Before we can work with the data we first create a working directory and set the environment.
+As a first step we will inspect the paired-end library. The data structure and do some quality control and filtering. Before we can work with the data we first create a working directory and set the environment.
 
 Login to one of the virtual machines (VMs) vmXX-bt-edu.tnw.tudelft.nl (XX= 01 - 08)
 
@@ -96,4 +96,44 @@ $ /home/nfs/YOUR-NETID/LM3601
 {: .output}
 
 
-#FastQ format
+# Quality Control
+
+We learned about fastq files and how to do quality control in the variant calling sessions. [fastq and quality control](https://mvdb01.github.io/wrangling-genomics/02-quality-control/index.html)
+
+
+
+> ## Exercise
+> 
+>  Asses the quality of the paired-end library called PE_600bp_50x. PE stands for Paired-end, 600bp is the insert-size of the sequenced fragment and we will use a subset of the data, in this case 50x coverage. 
+> (Hint: Use `fastqc` and `scp` to download the created `html` files.)
+>
+>> ## Solution
+>>  
+>> Create an output folder for the result files.
+>>
+>> ~~~
+>> $ mkdir -p results/fastqc
+>> ~~~
+>> {: .bash}
+>>
+>> Run fastqc on the paired-end library
+>>
+>> ~~~
+>> $ fastqc data/PE_600bp_50x_* -o results/fastqc/
+>> ~~~
+>> {: .bash}
+>>>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> $ mkdir ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc/*.html ~/Desktop/fastqc_html/
+>> ~~~
+>> {: .bash}
+>> 
+>> Then take a look at the html files in your browser.
+>>
+> {: .solution}
+{: .challenge}
+
+
+# Trimming
