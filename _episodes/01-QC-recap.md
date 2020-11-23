@@ -112,21 +112,22 @@ We learned about fastq files and how to do quality control in the variant callin
 >> Create an output folder for the result files.
 >>
 >> ~~~
->> $ mkdir -p results/fastqc
+>> $ mkdir -p results/fastqc_untrimmed_reads
 >> ~~~
 >> {: .bash}
 >>
 >> Run fastqc on the paired-end library
 >>
 >> ~~~
->> $ fastqc data/PE_600bp_50x_* -o results/fastqc/
+>> $ fastqc data/PE_600bp_50x_* -o results/fastqc_untrimmed_reads
 >> ~~~
 >> {: .bash}
->>>> In a new tab (local computer) in your terminal do:
+>>
+>> In a new tab (local computer) in your terminal do:
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc/*.html ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
 >> 
@@ -137,3 +138,80 @@ We learned about fastq files and how to do quality control in the variant callin
 
 
 # Trimming
+
+Trimmomatic performs a variety of useful trimming tasks, like removal of bad quality data and adapters, for illumina paired-end and single ended data. For a recap look at the trimming lesson. [trimmomatic](https://mvdb01.github.io/wrangling-genomics/03-trimming/index.html)
+
+
+> ## Exercise
+> 
+> Apply Trimmomatic on the Paired End 600bp frags library using:
+>
+> 1. No adapter trimming.
+> 2. Remove leading low quality or N bases (below quality 3) (LEADING:3)
+> 3. Remove trailing low quality or N bases (below quality 3) (TRAILING:3)
+> 4. Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15 (SLIDINGWINDOW:4:15)
+> 5. Drop reads below the 100 bases long (MINLEN:100)
+>
+> How many reads were kept and how many removed?
+>
+>> ## Solution
+>>  
+>> Create an output folder trimmed_fastq in folder data.
+>>
+>> ~~~
+>> $ mkdir -p data/trimmed_fastq
+>> ~~~
+>> {: .bash}
+>>
+>> Move into trimmed_fastq
+>>
+>> ~~~
+>> $ cd data/trimmed_fastq
+>> ~~~
+>> {: .bash}
+>>
+>> Run trimmomatic on the paired end library:
+>>
+>> ~~~
+>> $ trimmomatic PE \
+        ~/LM3601/data/untrimmed_fastq/PE_600bp_50x_1.fastq.gz ~/LM3601/data/untrimmed_fastq/PE_600bp_50x_2.fastq.gz \
+        PE_600bp_50x_1.trim.fastq.gz PE_600bp_50x_1un.trim.fastq.gz \
+        PE_600bp_50x_2.trim.fastq.gz PE_600bp_50x_2un.trim.fastq.gz \
+        LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:100 
+>> ~~~
+>> {: .bash}
+> {: .solution}
+{: .challenge}
+
+> ## Exercise
+> 
+>  Asses the quality of the trimmed paired-end library.
+>
+>> ## Solution
+>>  
+>> Create an output folder for the result files.
+>>
+>> ~~~
+>> $ mkdir -p ~/LM3601/results/fastqc_trimmed_reads
+>> ~~~
+>> {: .bash}
+>>
+>> Run fastqc on the paired-end library
+>>
+>> ~~~
+>> $ fastqc ~/LM3601/data/trimmed_fastq/PE_600bp_50x_* -o ~/LM3601/results/fastqc_trimmed_reads
+>> ~~~
+>> {: .bash}
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> $ mkdir ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc_trimmed_reads/*.html ~/Desktop/fastqc_html/
+>> ~~~
+>> {: .bash}
+>> 
+>> Then take a look at the html files in your browser.
+>>
+> {: .solution}
+{: .challenge}
