@@ -77,21 +77,21 @@ $ cd
 Copy the data that we are going to use for this session:
 
 ~~~
-$ cp -r /mnt/linapps/share/LM3601/ .
+$ cp -r /mnt/linapps/share/asm_workshop/ .
 ~~~
 {: .bash}
 
-Move into the just created directorie "LM3601":
+Move into the just created directorie "asm_workshop":
 
 ~~~
-$ cd LM3601
+$ cd asm_workshop
 ~~~
 {: .bash}
 
 Check with "pwd" that you have something like:
 
 ~~~
-$ /home/nfs/YOUR-NETID/LM3601
+$ /home/nfs/YOUR-NETID/asm_workshop
 ~~~
 {: .output}
 
@@ -104,7 +104,7 @@ We learned about fastq files and how to do quality control in the variant callin
 
 > ## Exercise
 > 
->  Asses the quality of the paired-end library called PE_600bp_50x. PE stands for Paired-end, 600bp is the insert-size of the sequenced fragment and we will use a subset of the data, in this case 50x coverage. 
+>  Assess the quality of the paired-end library called PE_600bp_50x. PE stands for Paired-end, 600bp is the insert-size of the sequenced fragment and we will use a subset of the data, in this case 50x coverage. 
 > (Hint: Use `fastqc` and `scp` to download the created `html` files.)
 >
 >> ## Solution
@@ -127,7 +127,7 @@ We learned about fastq files and how to do quality control in the variant callin
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
 >> 
@@ -174,7 +174,8 @@ Trimmomatic performs a variety of useful trimming tasks, like removal of bad qua
 >>
 >> ~~~
 >> $ trimmomatic PE \
-        ~/LM3601/data/untrimmed_fastq/PE_600bp_50x_1.fastq.gz ~/LM3601/data/untrimmed_fastq/PE_600bp_50x_2.fastq.gz \
+        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_50x_1.fastq.gz \
+        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_50x_2.fastq.gz \
         PE_600bp_50x_1.trim.fastq.gz PE_600bp_50x_1un.trim.fastq.gz \
         PE_600bp_50x_2.trim.fastq.gz PE_600bp_50x_2un.trim.fastq.gz \
         LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:100 
@@ -185,21 +186,21 @@ Trimmomatic performs a variety of useful trimming tasks, like removal of bad qua
 
 > ## Exercise
 > 
->  Asses the quality of the trimmed paired-end library.
+>  Assess the quality of the trimmed paired-end library.
 >
 >> ## Solution
 >>  
 >> Create an output folder for the result files.
 >>
 >> ~~~
->> $ mkdir -p ~/LM3601/results/fastqc_trimmed_reads
+>> $ mkdir -p ~/asm_workshop/results/fastqc_trimmed_reads
 >> ~~~
 >> {: .bash}
 >>
 >> Run fastqc on the paired-end library
 >>
 >> ~~~
->> $ fastqc ~/LM3601/data/trimmed_fastq/PE_600bp_50x_* -o ~/LM3601/results/fastqc_trimmed_reads
+>> $ fastqc ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_* -o ~/asm_workshop/results/fastqc_trimmed_reads
 >> ~~~
 >> {: .bash}
 >>
@@ -207,7 +208,7 @@ Trimmomatic performs a variety of useful trimming tasks, like removal of bad qua
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/LM3601/results/fastqc_trimmed_reads/*.html ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_trimmed_reads/*.html ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
 >> 
