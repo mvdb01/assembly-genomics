@@ -119,7 +119,7 @@ We learned about fastq files and how to do quality control in the variant callin
 >> Run fastqc on the paired-end library
 >>
 >> ~~~
->> $ fastqc data/PE_600bp_50x_* -o results/fastqc_untrimmed_reads
+>> $ fastqc data/untrimmed_fastq/PE_600bp_50x_* -o results/fastqc_untrimmed_reads
 >> ~~~
 >> {: .bash}
 >>
