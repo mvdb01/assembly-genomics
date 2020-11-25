@@ -25,6 +25,7 @@ $ cd ~/asm_workshop
 ~~~
 {: .bash}
 
+
 # SPAdes Genome Assembler
 
 We will use the 'SPAdes Genome Assembler'. [SPAdes](https://cab.spbu.ru/software/spades/)
@@ -82,6 +83,7 @@ $ assemblyStats.py results/ecoli_pe/contigs.fasta
 ~~~
 {: .bash}
 
+
 # Filter assembly
 
 From the assembly statistics we find that there are 200 contigs. A lot of them smaller (56 bp) than the read length (100 bp). We therefor arbitrarily going to filter the assembly, keeping contigs > 500 bp
@@ -106,6 +108,7 @@ How many contigs represent 50% of the assembly? What is the N50?
 
 Open the filtered contigs file and select randomly sequence from the contigs and BLAST it on NCBI. [https://blast.ncbi.nlm.nih.gov/Blast.cgi](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 
+
 # Assembly with different kmers
 
 > ## Exercise
@@ -114,7 +117,7 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 > 
 >> ## Solution
 >> 
->> Use the `-k` option to set the kmer length. We will use here 21 as kmer length.
+>> Use the `-k` option to set the kmer length. We will use here 21 as kmer length. And changed the output folder name to ecoli_pe_k21
 >> 
 >> ~~~
 >> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
@@ -137,5 +140,27 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 > {: .solution}
 {: .challenge}
 
+
 # Evaluate with QUAST
+
+To inspect the results we can use QUAST [http://quast.sourceforge.net/quast](http://quast.sourceforge.net/quast) to evaluate the assemblies
+
+~~~
+$ quast.py results/ecoli_pe_k21/contigs.fasta \
+            results/ecoli_pe/contigs.fasta \
+            results/ecoli_pe_k77/contigs.fasta \
+            -o results/quast_PE
+~~~
+{: .bash}
+
+Now download the file `results/quast_pe/report.html` to your local computer and open it with a browser and compare the assemblies.
+
+In a new tab (local computer) in your terminal do:
+
+~~~
+$ mkdir ~/Desktop/quast/
+$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe/report.html ~/Desktop/quast/
+~~~
+{: .bash}
+
 
