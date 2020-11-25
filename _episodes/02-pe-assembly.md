@@ -100,10 +100,11 @@ $ assemblyStats.py results/ecoli_pe/contigs_500bp.fasta
 
 Have we assembled the complete genome of E. coli K12 substr. MG1655?
 
-Compare the sum of all contigs with the genome size on NCBI: https://www.ncbi.nlm.nih.gov/genome/167?project_id=57779
+Compare the sum of all contigs with the genome size on NCBI: [https://www.ncbi.nlm.nih.gov/genome/167?project_id=57779](https://www.ncbi.nlm.nih.gov/genome/167?project_id=57779)
 
 How many contigs represent 50% of the assembly? What is the N50?
 
-Open the filtered contigs file and select randomly sequence from the contigs and BLAST it on NCBI. https://blast.ncbi.nlm.nih.gov/Blast.cgi
+Open the filtered contigs file and select randomly sequence from the contigs and BLAST it on NCBI. [https://blast.ncbi.nlm.nih.gov/Blast.cgi](https://blast.ncbi.nlm.nih.gov/Blast.cgi)
 
 # Assembly with different kmers
+
