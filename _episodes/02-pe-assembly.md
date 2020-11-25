@@ -113,7 +113,7 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 
 > ## Exercise
 > 
-> Now make different assemblies with different kmer lengths to see the effect of the kmers. One with a small kmer (like 21) and the other with a higher kmer (like 77). change the output folder name to create new output folders.
+> Now make different assemblies with different kmer lengths to see the effect of the kmers. One with a small kmer (like 21) and the other with a higher kmer (like 87). change the output folder name to create new output folders.
 > 
 >> ## Solution
 >> 
@@ -122,18 +122,18 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 >> ~~~
 >> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
 >>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>             -o ~/asm_workshop/results/ecoli_pe_k21
+>>             -o ~/asm_workshop/results/ecoli_pe_k21 \
 >>             -k 21
 >> ~~~
 >> {: .bash}
 >> 
->> And for the second assembly we will use a kmer of 77.
+>> And for the second assembly we will use a kmer of 87.
 >> 
 >> ~~~
 >> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
 >>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>             -o ~/asm_workshop/results/ecoli_pe_k77
->>             -k 77
+>>             -o ~/asm_workshop/results/ecoli_pe_k87 \
+>>             -k 87
 >> ~~~
 >> {: .bash}
 >> 
@@ -148,8 +148,8 @@ To inspect the results we can use QUAST [http://quast.sourceforge.net/quast](htt
 ~~~
 $ quast.py results/ecoli_pe_k21/contigs.fasta \
             results/ecoli_pe/contigs.fasta \
-            results/ecoli_pe_k77/contigs.fasta \
-            -o results/quast_PE
+            results/ecoli_pe_k87/contigs.fasta \
+            -o results/quast_pe
 ~~~
 {: .bash}
 
@@ -164,3 +164,52 @@ $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe/report
 {: .bash}
 
 
+# Visualise the assembly graphs with Bandage (Optional)
+
+Bandage is a program for visualising de novo assembly graphs. By displaying connections which are not present in the contigs file.
+
+Download Bandage from here: [http://rrwick.github.io/Bandage/](http://rrwick.github.io/Bandage/)
+No installtion is necessary - just unzip and run.
+
+When first opening Bandage on a Mac, you may receive a warning stating that Bandage 'can't be opened because it is from an unidentified developer.' Right click on the file and select 'Open' to override this warning.
+
+download the assembly graph files to you local computer.
+In a new tab (local computer) in your terminal do:
+
+~~~
+$ mkdir ~/Desktop/bandage/
+$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe/assembly_graph.fastg \
+        ~/Desktop/bandage/assembly_graph.fastg
+$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_k21/assembly_graph.fastg \
+        ~/Desktop/bandage/assembly_graph_k21.fastg
+$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_k87/assembly_graph.fastg \
+        ~/Desktop/bandage/assembly_graph_k87.fastg
+~~~
+{: .bash}
+
+start Bandage and load the file assembly_graph.fastg for all three the assemblies one by one
+
+Click on "Draw graph" and save as image (current view)
+
+Do the same for the k21 and k87 assemblies and compare the three assembly graphs
+
+
+# Assembly alignment
+
+The assembly statistics gives us an idea on the assembly size and so on, but not on the correctness. Can we trust the contigs?
+
+We will use nucmer from the MUMmer package to align the contigs to the reference. [http://mummer.sourceforge.net/](http://mummer.sourceforge.net/)
+
+We are lucky that there is a reference available.
+
+Create a new folder called mummer in /home/genomics/LM3601/assembly
+
+$ mkdir ~/LM3601/results/mummer
+
+Move to this folder
+
+$ cd mummer
+
+USAGE: nucmer [options] < reference > < Query >
+
+Align the filtered assembly to the reference:
