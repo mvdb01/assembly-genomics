@@ -202,14 +202,61 @@ We will use nucmer from the MUMmer package to align the contigs to the reference
 
 We are lucky that there is a reference available.
 
-Create a new folder called mummer in /home/genomics/LM3601/assembly
+Create a new folder called mummer in ~/asm_workshop/results/
 
-$ mkdir ~/LM3601/results/mummer
+~~~
+$ mkdir ~/asm_workshop/results/mummer
+~~~
+{: .bash}
 
 Move to this folder
 
-$ cd mummer
+~~~
+$ cd results/mummer
+~~~
+{: .bash}
 
 USAGE: nucmer [options] < reference > < Query >
 
-Align the filtered assembly to the reference:
+Align the filtered assembly to the reference: (~/asm_workshop/reference/Ecoli_K12_reference.fasta)
+
+~~~
+$ nucmer --prefix ecoli_pe \
+        ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+        ~/asm_workshop/results/ecoli_pe/contigs_500bp.fasta
+~~~
+{: .bash}
+
+nucmer has aligned all contigs to the reference.
+
+Run show-tiling on the ecoli_pe.delta file:
+
+~~~
+$ show-tiling ecoli_pe.delta
+~~~
+{: .bash}
+
+This gives us the coordinates of the "best" aligned location of the contigs
+
+We will use mummerplot to plot the alignments:
+
+~~~
+$ mummerplot --png --layout --filter -p ecoli_pe \
+        ecoli_pe.delta \
+        -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+        -Q ~/asm_workshop/results/ecoli_pe/contigs_500bp.fasta
+~~~
+{: .bash}
+
+A plot file 'ecoli_pe.png' has been created. Download the file to your local computer and inspect the file. 
+
+In a new tab (local computer) in your terminal do:
+
+~~~
+$ mkdir ~/Desktop/mummer/
+$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_pe.png ~/Desktop/mummer/
+~~~
+{: .bash}
+
+What does this tell us about the assembly?
+
