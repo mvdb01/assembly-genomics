@@ -108,3 +108,34 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 
 # Assembly with different kmers
 
+> ## Exercise
+> 
+> Now make different assemblies with different kmer lengths to see the effect of the kmers. One with a small kmer (like 21) and the other with a higher kmer (like 77). change the output folder name to create new output folders.
+> 
+>> ## Solution
+>> 
+>> Use the `-k` option to set the kmer length. We will use here 21 as kmer length.
+>> 
+>> ~~~
+>> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
+>>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
+>>             -o ~/asm_workshop/results/ecoli_pe_k21
+>>             -k 21
+>> ~~~
+>> {: .bash}
+>> 
+>> And for the second assembly we will use a kmer of 77.
+>> 
+>> ~~~
+>> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
+>>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
+>>             -o ~/asm_workshop/results/ecoli_pe_k77
+>>             -k 77
+>> ~~~
+>> {: .bash}
+>> 
+> {: .solution}
+{: .challenge}
+
+# Evaluate with QUAST
+
