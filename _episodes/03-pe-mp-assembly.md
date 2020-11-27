@@ -103,4 +103,27 @@ Due to a different library preparation the read orientation of these libraries a
 
 # Visualise the assembly graphs with Bandage (Optional)
 
-
+> ## Exercise
+> 
+> Download the `assembly graph` of the `PE-MP` and compare it with the `assembly graph` of the `PE` assembly.
+> 
+>
+>> ## Solution
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_mp/assembly_graph.fastg \
+>>        ~/Desktop/bandage/assembly_graph_pe_mp.fastg
+>> ~~~
+>> {: .bash}
+>> 
+>>
+>> start Bandage and load the file assembly_graph_pe_mp.fastg.
+>>
+>> Click on "Draw graph" and save as image (current view)
+>>
+>> compare with the `PE` assembly graph.
+>>
+> {: .solution}
+{: .challenge}
