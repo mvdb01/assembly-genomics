@@ -6,6 +6,7 @@ questions:
 - "How to do a de novo short read paired-end genome assembly using mate-pairs?"
 objectives:
 - "Assembly by using multiple libraries with different library preparations"
+- "Explain what the terms `scaffolding` and 'scaffolds' means"
 keypoints:
 - ""
 ---
@@ -127,3 +128,38 @@ Due to a different library preparation the read orientation of these libraries a
 >>
 > {: .solution}
 {: .challenge}
+
+# Filter PE-MP assembly
+
+
+> ## Exercise
+>
+> Filter out the smaller fragments from the `PE-MP` assembly by applying filterFasta_500bp.py like we did with the `PE` assembly. But now we have to use the file `scaffolds.fasta` since the mate-pair library was used for scaffolding.
+> Use `scaffolds_500bp.fasta` as output filename.
+>
+> After filtering apply assemblyStats.py on the filtered scaffold file.
+>
+> Have we assembled the complete genome of E. coli K12 substr. MG1655?
+> And how many scaffolds do we have?
+>
+>> ## Solution
+>> 
+>> ~~~
+>> $ filterFasta_500bp.py -i ~/asm_workshop/results/ecoli_pe_mp/scaffolds.fasta \
+>>                        -o ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> ~~~
+>> {: .bash}
+>> 
+>> Inspect the assembly statistics:
+>> 
+>> ~~~
+>> $ assemblyStats.py ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> ~~~
+>> {: .bash}
+>> 
+> {: .solution}
+{: .challenge}
+
+# Scaffold alignment
+
+
