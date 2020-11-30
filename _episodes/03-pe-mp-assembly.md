@@ -5,8 +5,8 @@ exercises: 0
 questions:
 - "How to do a de novo short read paired-end genome assembly using mate-pairs?"
 objectives:
-- "Assembly by using multiple libraries with different library preparations"
-- "Explain what the terms `scaffolding` and 'scaffolds' means"
+- "Assembly by using multiple libraries with different insert sizes."
+- "Being able to explain the terms `scaffolding` and 'scaffolds'."
 keypoints:
 - ""
 ---
@@ -17,7 +17,7 @@ In most assembly projects multiple libraries with different insert sizes are use
 
 Here we will add an 2.5 kb Mate pair library.
 
-Due to a different library preparation the read orientation of these libraries are different. PE: → ← MP: ← →
+Due to the library preparation the read orientation of these libraries are different: PE: `→ ←` , MP: `← →` OR `→ ←`
 
 
 # SPAdes PE and MP assembly
@@ -25,10 +25,10 @@ Due to a different library preparation the read orientation of these libraries a
 
 > ## Exercise
 > 
-> Assemble the trimmed Paired End library and a Mate-pair library, located at: `~/asm_workshop/data/mp/MP_2.5kb_25x_?.fastq.gz` with SPAdes. Use as output dir `ecoli_pe_mp`.
+> Assemble the trimmed Paired End library together with a Mate-pair library, located at: `~/asm_workshop/data/mp/MP_2.5kb_25x_?.fastq.gz` with SPAdes. Use as output dir `ecoli_pe_mp`.
 >
 >
-> We have to specify in SPADES the paired-end (PE) and the mate-pair (MP) library by applying the --pex-x and --mpx-x flags. And also provide the read orientation for the Mate-pair library.
+> We have to specify in SPAdes the paired-end (PE) and the mate-pair (MP) library by applying the --pex-x and --mpx-x flags. And also provide the read orientation for the Mate-pair library.
 >
 >
 >
