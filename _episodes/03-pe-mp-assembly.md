@@ -67,7 +67,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 > {: .solution}
 {: .challenge}
 
-# QUAST on PE and PE-MP assemblies
+# QUAST: compare PE and PE-MP assemblies
 
 > ## Exercise
 > 
@@ -85,10 +85,10 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> ## Solution
 >> 
 >> ~~~
->> $ quasy.py \
+>> $ quast.py \
 >>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
 >>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
->>      ~/asm_workshop/results/quast_pe_mp
+>>      -o ~/asm_workshop/results/quast_pe_mp
 >> ~~~
 >> {: .bash}
 >>
@@ -161,5 +161,50 @@ Due to the library preparation the read orientation of these libraries are diffe
 {: .challenge}
 
 # Scaffold alignment
+
+> ## Exercise
+>
+>
+> Align the filtered scaffolds to the reference: (`~/asm_workshop/reference/Ecoli_K12_reference.fasta`).
+> Use as a prefix: `ecoli_pe_mp`.
+>
+> Make sure you are working in the mummer folder: `~/asm_workshop/results/mummer`
+>
+> Inspect the resulting `ecoli_pe_mp.png` plot.
+> Has the mate-pair library improved the assembly?
+>
+>> ## Solution
+>> 
+>> Use as working directory: `~/asm_workshop/results/mummer`
+>> ~~~
+>> $ cd ~/asm_workshop/results/mummer
+>> ~~~
+>> {: .bash}
+>> 
+>> Run nucmer
+>> 
+>> ~~~
+>> $ nucmer --prefix ecoli_pe_mp \
+>>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>          ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> ~~~
+>> {: .bash}
+>>
+>> nucmer has aligned all scaffolds to the reference.
+>> 
+>> Use mummerplot to plot the alignments:
+>>
+>> ~~~
+>> $ mummerplot --png --layout --filter --prefix ecoli_pe_mp \
+>>          ~/asm_workshop/results/mummer/ecoli_pe_mp.delta \
+>>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>          -Q ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> ~~~
+>> {: .bash}
+>>
+> {: .solution}
+{: .challenge}
+
+
 
 
