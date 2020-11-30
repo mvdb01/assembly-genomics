@@ -202,6 +202,15 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> ~~~
 >> {: .bash}
 >>
+>> A plot file 'ecoli_pe_mp.png' has been created. Download the file to your local computer and inspect the file. 
+>> 
+>> In a new tab (local computer) in your terminal do:
+>> 
+>> ~~~
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_pe_mp.png ~/Desktop/mummer/
+>> ~~~
+>> {: .bash}
+>>
 > {: .solution}
 {: .challenge}
 
