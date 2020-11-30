@@ -12,7 +12,7 @@ keypoints:
 
 # *De Novo* assembly (Nanopore)
 
-Recent new single molecule technologies like PacBio and Oxford Nanopore are promising. Here we will assemble data from Nick Loman lab: [http://lab.loman.net/2016/07/30/nanopore-r9-data-release/](http://lab.loman.net/2016/07/30/nanopore-r9-data-release/), sequenced on a MinION SpotON flowcell R9.2. [https://nanoporetech.com/products/minion](https://nanoporetech.com/products/minion)
+Recent new single molecule technologies like PacBio and Oxford Nanopore are promising. Here we will assemble data from NCBI Bioproject [https://www.ncbi.nlm.nih.gov/bioproject/PRJDB9013](https://www.ncbi.nlm.nih.gov/bioproject/PRJDB9013), which was used for `Benchmarks of de novo assemblers for bacterial genomes`. The data we will use is *E. coli* str. K12 substr. MG1655 with identifier `DRR198814` (https://www.ncbi.nlm.nih.gov/sra/DRX189231[accn]) which was sequenced on a MinION from Oxford Nanopore. [https://nanoporetech.com/products/minion](https://nanoporetech.com/products/minion)
 
 # Inspecting read length
 
