@@ -128,4 +128,31 @@ $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 ~~~
 {: .bash}
 
+# Visualise the assembly graphs with Bandage (Optional)
+
+> ## Exercise
+> 
+> Download the `polished assembly graph` of the `ONT` assembly and compare it with the `assembly graph` of the `PE` and `PE-MP` assemblies.
+> 
+>
+>> ## Solution
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/asm_ont/ont_polished.gfa \
+>>        ~/Desktop/bandage/
+>> ~~~
+>> {: .bash}
+>> 
+>>
+>> start Bandage and load the file ont_polished.gfa.
+>>
+>> Click on "Draw graph" and save as image (current view)
+>>
+>> compare with the `PE` `PE-MP` assembly graphs.
+>>
+> {: .solution}
+{: .challenge}
+
 
