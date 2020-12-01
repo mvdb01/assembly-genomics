@@ -155,4 +155,108 @@ $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 > {: .solution}
 {: .challenge}
 
+# Polished consensus sequence
+
+Now we have to extract the consence sequence from the polished assembly graph and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
+
+The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
+
+~~~
+$ awk '/^S/{print ">"$2"\n"$3}' \
+        ~/asm_workshop/results/asm_ont/ont_polished.gfa \
+        > ~/asm_workshop/results/asm_ont/ont_polished.fasta
+~~~
+{: .bash}
+
+# QUAST: compare ONT, PE and PE-MP assemblies
+
+> ## Exercise
+> 
+> Compare the `ONT` assembly with the illumina assemblies `PE` and `PE-MP` by using `QUAST`.
+> 
+>
+> What are the major differences between the two assemblies?
+>
+>
+>
+> Use `quast_pe_mp_ont` as output folder.
+>
+>
+>
+>> ## Solution
+>> 
+>> ~~~
+>> $ quast.py \
+>>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
+>>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
+>>      ~/asm_workshop/results/asm_ont/ont_polished.fasta \
+>>      -o ~/asm_workshop/results/quast_pe_mp_ont
+>> ~~~
+>> {: .bash}
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe_mp_ont/report.html \
+        ~/Desktop/quast/report_pe_mp_ont.html
+>> ~~~
+>> {: .bash}
+>> 
+> {: .solution}
+{: .challenge}
+
+
+# Assembly alignment
+
+> ## Exercise
+>
+>
+> Align the polished ONT assembly to the reference: (`~/asm_workshop/reference/Ecoli_K12_reference.fasta`).
+> Use as a prefix: `ecoli_ont`.
+>
+> Make sure you are working in the mummer folder: `~/asm_workshop/results/mummer`
+>
+> Inspect the resulting `ecoli_ont.png` plot.
+> Has the long reads improved the assembly?
+>
+>> ## Solution
+>> 
+>> Use as working directory: `~/asm_workshop/results/mummer`
+>> ~~~
+>> $ cd ~/asm_workshop/results/mummer
+>> ~~~
+>> {: .bash}
+>> 
+>> Run nucmer
+>> 
+>> ~~~
+>> $ nucmer --prefix ecoli_ont \
+>>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>          ~/asm_workshop/results/asm_ont/ont_polished.fasta
+>> ~~~
+>> {: .bash}
+>>
+>> nucmer has aligned the assembly to the reference.
+>> 
+>> Use mummerplot to plot the alignments:
+>>
+>> ~~~
+>> $ mummerplot --png --layout --filter --prefix ecoli_ont \
+>>          ~/asm_workshop/results/mummer/ecoli_ont.delta \
+>>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>          -Q ~/asm_workshop/results/asm_ont/ont_polished.fasta
+>> ~~~
+>> {: .bash}
+>>
+>> A plot file 'ecoli_ont.png' has been created. Download the file to your local computer and inspect the file. 
+>> 
+>> In a new tab (local computer) in your terminal do:
+>> 
+>> ~~~
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_ont.png ~/Desktop/mummer/
+>> ~~~
+>> {: .bash}
+>>
+> {: .solution}
+{: .challenge}
 
