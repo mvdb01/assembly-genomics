@@ -45,7 +45,7 @@ As a first step we will inspect the paired-end library. The data structure and d
 
 Login to one of the virtual machines (VMs) vmXX-bt-edu.tnw.tudelft.nl (XX= 01 - 08)
 
-Load the environment
+## Load the environment
 
 ~~~
 $ source /mnt/linapps/conda3loader
@@ -73,6 +73,8 @@ If you are not in your home folder type "cd" to go back to your home folder:
 $ cd
 ~~~
 {: .bash}
+
+## Get the data for the genomics course
 
 Copy the data that we are going to use for this session:
 
