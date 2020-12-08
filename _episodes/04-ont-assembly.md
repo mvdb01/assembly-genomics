@@ -296,6 +296,58 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 {: .challenge}
 
 
+# Polishing with Pilon
+
+Now that we have seen that we need to error correct (polish) assemblies that are based on noisy long reads. Minipolish used the noisy long reads to align these to the raw assembly and based on the sequence depth it was able to correct the sequence of the assembly.
+
+Still the error rate is to high to do for instance an annotation. The errors would result in highly fragmented genes. 
+
+An approach would be to use the Illumina reads from which we know it has high read accuracy. A polishing tool that can be used for this is Pilon.
+
+Pilon requires as input a fasta file of the draft assembly and the aligned Illumina reads to this draft assembly in BAM format as we did during the Variant Calling pipeline.
+
+> ## Exercise
+> 
+> Align the Illumina reads from `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz` and `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz` to the minipolished assembly: `~/asm_workshop/results/ecoli_ont/ont_polished.fasta` as we have done during the Variant Calling sessions.
+> 
+>
+> Use `bwa mem ` to do the mapping and create an `SAM` file
+>
+> Use `samtools` to `sort` and convert the `SAM` file to a sorted `BAM` file.
+>
+>  
+>
+>> ## Solution
+>>
+>> First index the polished assembly: 
+>>
+>> ~~~
+>> $ bwa index ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>> ~~~
+>> {: .bash}
+>>
+>> Map the paired-end Illumina reads to the indexed polished assembly:
+>> ~~~
+>> $ bwa mem ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
+>>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
+>>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
+>>          > ~/asm_workshop/results/ecoli_ont/pe_polished.sam
+>> ~~~
+>> {: .bash}
+>>
+>> Sort and convert the SAM file
+>>
+>> ~~~
+>>  samtools sort -O bam \
+>>            -o ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam \
+>>            ~/asm_workshop/results/ecoli_ont/pe_polished.sam
+>> ~~~
+>> {: .bash}
+>> 
+>>
+> {: .solution}
+{: .challenge}
+
 
 # Visualise the assembly graphs with Bandage (Optional)
 
