@@ -218,6 +218,8 @@ $ less ~/asm_workshop/results/mummer/ecoli_ont.report
 {: .challenge}
 
 
+
+
 # Error correcting (polishing) long read based assemblies
 
 Contigs genereated from erroneous long read based *De Novo* assemblies needs to be error corrected to improve the consensus sequence. Here we will use Minipolish, which will use Racon for polishing, to error correct in three steps the miniasm assembly. 
@@ -249,6 +251,52 @@ $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 ~~~
 {: .bash}
 
+## Polished consensus sequence
+
+Now we have to extract the consence sequence from the polished assembly graph and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
+
+The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
+
+~~~
+$ awk '/^S/{print ">"$2"\n"$3}' \
+        ~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
+        > ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+~~~
+{: .bash}
+
+> ## Exercise
+> 
+>
+> Apply `dnadiff` on the `minipolished` assembly: `~/asm_workshop/results/ecoli_ont/ont_polished.fasta `.
+>
+> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_ont_minipolish`
+>
+> Compare the average sequence identity from the `ecoli_ont_minipolish` assembly with the `ecoli_ont` sequence identity.
+> 
+>
+>> ## Solution
+>>
+>> run dnadiff with: 
+>>
+>> ~~~
+>> dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont_minipolish \
+>>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>            ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>> ~~~
+>> {: .bash}
+>> 
+>> Open the report `ecoli_ont_minipolish.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `ecoli_ont.report`
+>> 
+>> ~~~
+>> $ less ~/asm_workshop/results/mummer/ecoli_ont_minipolish.report
+>> ~~~
+>> {: .bash}
+>>
+> {: .solution}
+{: .challenge}
+
+
+
 # Visualise the assembly graphs with Bandage (Optional)
 
 > ## Exercise
@@ -276,18 +324,7 @@ $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 > {: .solution}
 {: .challenge}
 
-# Polished consensus sequence
 
-Now we have to extract the consence sequence from the polished assembly graph and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
-
-The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
-
-~~~
-$ awk '/^S/{print ">"$2"\n"$3}' \
-        ~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
-        > ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
-~~~
-{: .bash}
 
 # QUAST: compare ONT, PE and PE-MP assemblies
 
