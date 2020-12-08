@@ -348,6 +348,7 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 > {: .solution}
 {: .challenge}
 
+## Pilon
 
 Before we can apply `pilon` we first have to `index` the alignment file.
 
