@@ -349,6 +349,28 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 {: .challenge}
 
 
+Before we can apply `pilon` we first have to `index` the alignment file.
+
+~~~
+$ samtools index ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam
+~~~
+{: .bash}
+
+Now we are ready to run pilon:
+
+~~~
+$ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
+        --threads 4 \
+        --genome ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
+        --frags ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam \
+        --output ~/asm_workshop/results/ecoli_ont/ont_pilon_polished \
+        --changes --fix all
+~~~
+{: .bash}
+
+
+
+
 # Visualise the assembly graphs with Bandage (Optional)
 
 > ## Exercise
