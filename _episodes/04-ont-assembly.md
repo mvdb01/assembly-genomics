@@ -371,6 +371,77 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 
 
 
+> ## Exercise
+> 
+>
+> Apply `dnadiff` on the `pilon polished` assembly: `~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta `.
+>
+> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_ont_pilon`
+>
+> Compare the average sequence identity from the `ecoli_ont_pilon` assembly with the `ecoli_ont` and `ecoli_ont_minipolish` sequence identity.
+> 
+>
+>> ## Solution
+>>
+>> run dnadiff with: 
+>>
+>> ~~~
+>> dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont_pilon \
+>>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>            ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta
+>> ~~~
+>> {: .bash}
+>> 
+>> Open the report `ecoli_ont_pilon.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `ecoli_ont_minipolish.report`
+>> 
+>> ~~~
+>> $ less ~/asm_workshop/results/mummer/ecoli_ont_pilon.report
+>> ~~~
+>> {: .bash}
+>>
+> {: .solution}
+{: .challenge}
+
+
+
+# QUAST: compare ONT, PE and PE-MP assemblies
+
+> ## Exercise
+> 
+> Compare the `pilon polished ONT` assembly with the illumina assemblies `PE` and `PE-MP` by using `QUAST`.
+> 
+>
+> What are the major differences between the two assemblies?
+>
+>
+>
+> Use `quast_pe_mp_ont` as output folder.
+>
+>
+>
+>> ## Solution
+>> 
+>> ~~~
+>> $ quast.py \
+>>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
+>>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
+>>      ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta \
+>>      -o ~/asm_workshop/results/quast_pe_mp_ont
+>> ~~~
+>> {: .bash}
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe_mp_ont/report.html \
+        ~/Desktop/quast/report_pe_mp_ont.html
+>> ~~~
+>> {: .bash}
+>> 
+> {: .solution}
+{: .challenge}
+
+
 # Visualise the assembly graphs with Bandage (Optional)
 
 > ## Exercise
@@ -399,43 +470,6 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 {: .challenge}
 
 
-
-# QUAST: compare ONT, PE and PE-MP assemblies
-
-> ## Exercise
-> 
-> Compare the `ONT` assembly with the illumina assemblies `PE` and `PE-MP` by using `QUAST`.
-> 
->
-> What are the major differences between the two assemblies?
->
->
->
-> Use `quast_pe_mp_ont` as output folder.
->
->
->
->> ## Solution
->> 
->> ~~~
->> $ quast.py \
->>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
->>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
->>      ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
->>      -o ~/asm_workshop/results/quast_pe_mp_ont
->> ~~~
->> {: .bash}
->>
->> In a new tab (local computer) in your terminal do:
->>
->> ~~~
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe_mp_ont/report.html \
-        ~/Desktop/quast/report_pe_mp_ont.html
->> ~~~
->> {: .bash}
->> 
-> {: .solution}
-{: .challenge}
 
 
 # Assembly alignment
