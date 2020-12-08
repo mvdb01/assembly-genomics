@@ -89,6 +89,7 @@ $ mkdir ~/asm_workshop/results/ecoli_ont
 ~~~
 {: .bash}
 
+## minimap2
 
 The first step is to run minimap for the all-vs-all mapping.
 
@@ -109,6 +110,8 @@ $  minimap2 -x ava-ont \
             > ~/asm_workshop/results/ecoli_ont/ont_overlaps.paf
 ~~~
 {: .bash}
+
+## miniasm
 
 The all-vs-all alignments (`ont_overlaps.paf`) will be used as input for `miniasm` that will build a assembly graph in GFA format.
 
