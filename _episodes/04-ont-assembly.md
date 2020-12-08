@@ -23,10 +23,12 @@ Like we have done for the short reads we are going to do quality control on the 
 
 > ## Exercise
 > 
->  Assess the quality of the long reads from Oxford Nanopre technology (ONT) located in: `~/asm_workshop/data/ont/DRR198814_44x.fastq.gz`. These are single reads with different read lengths. We will use a subset of the data, in this case 44x coverage. 
+>  Assess the quality of the long reads from Oxford Nanopre technology (ONT) located in: `~/asm_workshop/data/ont/DRR198814_44x.fastq.gz`. These are single reads with different read lengths. We will use a subset of the data, in this case 44x coverage.  
 >
-> Compare the error rate with what you would expect with Illumina error rates.
-> Compare the read length distribution in respect to the Illumina libraries.
+> Use as output folder `~/asm_workshop/results/fastqc_ont`  
+>
+> Compare the error rate with those from the Illumina error rates.  
+> Compare the read length distribution in respect to the Illumina libraries.  
 >
 > (Hint: Use `fastqc` and `scp` to download the created `html` files.)
 >
