@@ -173,7 +173,7 @@ Run dnadiff with the -p option to control the output file name.
 ~~~
 $ dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont \
             ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-            ~/asm_workshop/results/ecoli_ont/ont/assmbly.fasta
+            ~/asm_workshop/results/ecoli_ont/ont_assmbly.fasta
 ~~~
 {: .bash}
 
@@ -184,7 +184,33 @@ $ mkdir ~/asm_workshop/results/mummer/ecoli_ont.report
 ~~~
 {: .bash}
 
-
+> ## Exercise
+> 
+> We have looked into the sequence similarity of Noisy long read assembly but not for Illumina based assemblies.
+>
+>
+> Apply `dnadiff` on the `paired-end` SPAdes assembly we did: `~/asm_workshop/results/ecoli_pe/contigs.fasta `.
+>
+> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_pe`
+>
+> Compare the average sequence identity from the `ecoli_pe` assembly with the `ecoli_ont` sequence identity.
+> 
+>
+>> ## Solution
+>>
+>> run dnadiff with: 
+>>
+>> ~~~
+>> dnadiff -p ~/asm_workshop/results/mummer/ecoli_pe \
+>>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+>>            ~/asm_workshop/results/ecoli_pe/contigs.fasta
+>> ~~~
+>> {: .bash}
+>> 
+>>  
+>>
+> {: .solution}
+{: .challenge}
 
 
 # Error correcting (polishing) long read based assemblies
