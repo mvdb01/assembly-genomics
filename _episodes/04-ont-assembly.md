@@ -52,7 +52,7 @@ Like we have done for the short reads we are going to do quality control on the 
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_ont/DRR198814_50k-reads_fastqc.html \
+>> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_ont/DRR198814_44x_fastqc.html \
 >>        ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
