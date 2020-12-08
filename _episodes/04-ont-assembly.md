@@ -25,10 +25,13 @@ Like we have done for the short reads we are going to do quality control on the 
 > 
 >  Assess the quality of the long reads from Oxford Nanopre technology (ONT) located in: `~/asm_workshop/data/ont/DRR198814_44x.fastq.gz`. These are single reads with different read lengths. We will use a subset of the data, in this case 44x coverage.  
 >
+>
 > Use as output folder `~/asm_workshop/results/fastqc_ont`  
+>
 >
 > Compare the error rate with those from the Illumina error rates.  
 > Compare the read length distribution in respect to the Illumina libraries.  
+>
 >
 > (Hint: Use `fastqc` and `scp` to download the created `html` files.)
 >
@@ -65,9 +68,27 @@ Like we have done for the short reads we are going to do quality control on the 
 
 # Miniasm assembler
 
+
+
+
 Miniasm is a very fast OLC-based de novo assembler for noisy long reads like PacBio and Oxford Nanopore data. [https://github.com/lh3/miniasm](https://github.com/lh3/miniasm)
 
 Miniasm needs an all-vs-all read self-mapping (typically by minimap2) as input.
+
+Before we can start we first we will move to the asm_workshop folder
+
+~~~
+$ cd ~/asm_workshop
+~~~
+{: .bash}
+
+And create an output folder for the Nanopore assembly results.
+
+~~~
+$ mkdir ~/asm_workshop/results/ecoli_ont
+~~~
+{: .bash}
+
 
 The first step is to run minimap for the all-vs-all mapping.
 
@@ -80,11 +101,12 @@ $  minimap2
 
 For all-vs-all mapping we use the raw ont reads as target `and` as query. As preset setting we have to use `-x ava-ont` for ONT read overlap and redirect the output to a `PAF` file (Pairwise mApping Format), which is a text format describing the approximate mapping positions between two sets of sequences.
 
+
 ~~~
 $  minimap2 -x ava-ont \
             ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
             ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            > ~/asm_workshop/results/asm_ont/ont_overlaps.paf
+            > ~/asm_workshop/results/ecoli_ont/ont_overlaps.paf
 ~~~
 {: .bash}
 
@@ -94,8 +116,8 @@ Besides the all-vs-all `PAF` file we also have to provide the raw ONT reads.
 
 ~~~
 $ miniasm -f ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            ~/asm_workshop/results/asm_ont/ont_overlaps.paf \
-            > ~/asm_workshop/results/asm_ont/ont_assembly.gfa
+            ~/asm_workshop/results/ecoli_ont/ont_overlaps.paf \
+            > ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa
 ~~~
 {: .bash}
 
@@ -125,8 +147,8 @@ To be able to run Minipolish we need to provide it with the raw reads and the as
 
 ~~~
 $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            ~/asm_workshop/results/asm_ont/ont_assembly.gfa \
-            > ~/asm_workshop/results/asm_ont/ont_polished.gfa
+            ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa \
+            > ~/asm_workshop/results/ecoli_ont/ont_polished.gfa
 ~~~
 {: .bash}
 
@@ -142,7 +164,7 @@ $ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 >> In a new tab (local computer) in your terminal do:
 >>
 >> ~~~
->> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/asm_ont/ont_polished.gfa \
+>> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
 >>        ~/Desktop/bandage/
 >> ~~~
 >> {: .bash}
@@ -165,8 +187,8 @@ The assembly graph contains the sequence that we need but we have to convert it 
 
 ~~~
 $ awk '/^S/{print ">"$2"\n"$3}' \
-        ~/asm_workshop/results/asm_ont/ont_polished.gfa \
-        > ~/asm_workshop/results/asm_ont/ont_polished.fasta
+        ~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
+        > ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
 ~~~
 {: .bash}
 
@@ -191,7 +213,7 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 >> $ quast.py \
 >>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
 >>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
->>      ~/asm_workshop/results/asm_ont/ont_polished.fasta \
+>>      ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
 >>      -o ~/asm_workshop/results/quast_pe_mp_ont
 >> ~~~
 >> {: .bash}
