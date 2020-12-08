@@ -121,6 +121,19 @@ $ miniasm -f ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
 ~~~
 {: .bash}
 
+# Consensus sequence
+
+Now we have to extract the consence sequence from the `assembly graph` and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
+
+The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
+
+~~~
+$ awk '/^S/{print ">"$2"\n"$3}' \
+        ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa \
+        > ~/asm_workshop/results/ecoli_ont/ont_assembly.fasta
+~~~
+{: .bash}
+
 # Error correcting (polishing) long read based assemblies
 
 Contigs genereated from erroneous long read based *De Novo* assemblies needs to be error corrected to improve the consensus sequence. Here we will use Minipolish, which will use Racon for polishing, to error correct in three steps the miniasm assembly. 
