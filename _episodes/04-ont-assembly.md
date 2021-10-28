@@ -278,9 +278,13 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 >> ## Solution
 >>
 >> run dnadiff with: 
+>> ~~~
+>> $ cd ~/asm_workshop/results/mummer
+>> ~~~
+>> {: .bash}
 >>
 >> ~~~
->> dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont_minipolish \
+>> dnadiff -p ecoli_ont_minipolish \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
 >>            ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
 >> ~~~
@@ -388,7 +392,12 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> run dnadiff with: 
 >>
 >> ~~~
->> dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont_pilon \
+>> $ cd ~/asm_workshop/results/mummer
+>> ~~~
+>> {: .bash}
+>>
+>> ~~~
+>> dnadiff -p ecoli_ont_pilon \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
 >>            ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta
 >> ~~~
