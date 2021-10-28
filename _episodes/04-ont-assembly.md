@@ -509,7 +509,7 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> ~~~
 >> $ nucmer --prefix ecoli_ont \
 >>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          ~/asm_workshop/results/asm_ont/ont_polished.fasta
+>>          ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >>
