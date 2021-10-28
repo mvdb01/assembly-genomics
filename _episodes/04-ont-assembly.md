@@ -161,17 +161,18 @@ We will use as a reference: `~/asm_workshop/reference/Ecoli_K12_reference.fasta`
 
 And the ONT assembly as query: `~/asm_workshop/results/ecoli_ont/ont/assmbly.fasta`
 
-First we have to make an output folder:
+Move to the earlier created Mummer folder:
 
 ~~~
-$ mkdir ~/asm_workshop/results/mummer
+$ cd ~/asm_workshop/results/mummer
 ~~~
 {: .bash}
+          
 
 Run dnadiff with the -p option to control the output file name.
 
 ~~~
-$ dnadiff -p ~/asm_workshop/results/mummer/ecoli_ont \
+$ dnadiff -p ecoli_ont \
             ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
             ~/asm_workshop/results/ecoli_ont/ont_assmbly.fasta
 ~~~
@@ -201,7 +202,7 @@ $ less ~/asm_workshop/results/mummer/ecoli_ont.report
 >> run dnadiff with: 
 >>
 >> ~~~
->> dnadiff -p ~/asm_workshop/results/mummer/ecoli_pe \
+>> dnadiff -p ecoli_pe \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
 >>            ~/asm_workshop/results/ecoli_pe/contigs.fasta
 >> ~~~
