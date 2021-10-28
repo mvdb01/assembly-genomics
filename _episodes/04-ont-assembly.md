@@ -521,7 +521,7 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> $ mummerplot --png --layout --filter --prefix ecoli_ont \
 >>          ~/asm_workshop/results/mummer/ecoli_ont.delta \
 >>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          -Q ~/asm_workshop/results/asm_ont/ont_polished.fasta
+>>          -Q ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >>
