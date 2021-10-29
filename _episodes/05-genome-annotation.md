@@ -11,3 +11,11 @@ keypoints:
 ---
 
 # Genome annotation
+
+~~~
+$ prokka --kingdom Bacteria --outdir ~/asm_workshop/results/prokka \
+	      --genus Escherichia --prefix Ecoli_K12 \
+	      --addgenes --species coli --strain K12 --usegenus \
+	      ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta
+~~~
+{: .bash}
