@@ -46,44 +46,44 @@ Assemble the trimmed `600bp` Paired End library with SPAdes and use as output fo
 Use `-1` for the forward reads and `-2` for the reverse reads.
 
 ~~~
-$ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
-            -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
-            -o ~/asm_workshop/results/ecoli_pe
+$ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
+            -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
+            -o ~/asm_workshop/results/spades_pe
 ~~~
 {: .bash}
 
-SPAdes created a new directory called `ecoli_pe`. Give a listing of this directory.
+SPAdes created a new directory called `spades_pe`. Give a listing of this directory.
 
 ~~~
-$ ls -l results/ecoli_pe
+$ ls -l results/spades_pe
 ~~~
 {: .bash}
 
 A log file (spades.log) is created by spades, outputing all the steps and results. Inspect the result:
 
 ~~~
-$ less results/ecoli_pe/spades.log
+$ less results/spades_pe/spades.log
 ~~~
 {: .bash}
 
 At the end of the log file (press shift-G) it shows the files that has been created. The contigs.fasta file contains the assembly. Inspect this file by using less. (Use Q to exit less)
 
 ~~~
-$ less results/ecoli_pe/contigs.fasta
+$ less results/spades_pe/contigs.fasta
 ~~~
 {: .bash}
 
 The first contig is called `NODE_1` and has a certain length and coverage. We can count the number of contigs in this file by doing a search on a string that is in common in all contigs (NODE) and use the pipe command to pass the resuls to `wc -l` to count every line in the output
 
 ~~~
-$ grep "NODE" results/ecoli_pe/contigs.fasta | wc -l
+$ grep "NODE" results/spades_pe/contigs.fasta | wc -l
 ~~~
 {: .bash}
 
 Now run the python script `assemblyStats.py` on the contigs file to get some statistics.
 
 ~~~
-$ assemblyStats.py results/ecoli_pe/contigs.fasta
+$ assemblyStats.py results/spades_pe/contigs.fasta
 ~~~
 {: .bash}
 
@@ -96,14 +96,14 @@ The `N50` defines the assembly quality in terms of sequence continuity and repre
 From the assembly statistics we find that there are 200 contigs. A lot of them smaller (56 bp) than the read length (100 bp). We therefor arbitrarily going to filter the assembly, keeping contigs > 500 bp
 
 ~~~
-$ filterFasta_500bp.py -i results/ecoli_pe/contigs.fasta -o results/ecoli_pe/contigs_500bp.fasta
+$ filterFasta_500bp.py -i results/spades_pe/contigs.fasta -o results/spades_pe/contigs_500bp.fasta
 ~~~
 {: .bash}
 
 Inspect the filtered assembly and compare it with the unfiltered.
 
 ~~~
-$ assemblyStats.py results/ecoli_pe/contigs_500bp.fasta
+$ assemblyStats.py results/spades_pe/contigs_500bp.fasta
 ~~~
 {: .bash}
 
@@ -127,9 +127,9 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 >> Use the `-k` option to set the kmer length. We will use here 21 as kmer length. And changed the output folder name to ecoli_pe_k21
 >> 
 >> ~~~
->> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
->>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>             -o ~/asm_workshop/results/ecoli_pe_k21 \
+>> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
+>>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
+>>             -o ~/asm_workshop/results/spades_pe_k21 \
 >>             -k 21
 >> ~~~
 >> {: .bash}
@@ -137,9 +137,9 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 >> And for the second assembly we will use a kmer of 87.
 >> 
 >> ~~~
->> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
->>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>             -o ~/asm_workshop/results/ecoli_pe_k87 \
+>> $ spades.py -1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
+>>             -2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
+>>             -o ~/asm_workshop/results/spades_pe_k87 \
 >>             -k 87
 >> ~~~
 >> {: .bash}
@@ -153,9 +153,9 @@ Open the filtered contigs file and select randomly sequence from the contigs and
 To inspect the results we can use QUAST [http://quast.sourceforge.net/quast](http://quast.sourceforge.net/quast) to evaluate the assemblies
 
 ~~~
-$ quast.py results/ecoli_pe_k21/contigs.fasta \
-            results/ecoli_pe/contigs.fasta \
-            results/ecoli_pe_k87/contigs.fasta \
+$ quast.py results/spades_pe_k21/contigs.fasta \
+            results/spades_pe/contigs.fasta \
+            results/spades_pe_k87/contigs.fasta \
             -o results/quast_pe
 ~~~
 {: .bash}
@@ -166,7 +166,7 @@ In a new tab (local computer) in your terminal do:
 
 ~~~
 $ mkdir ~/Desktop/quast/
-$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe/report.html ~/Desktop/quast/
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/quast_pe/report.html ~/Desktop/quast/
 ~~~
 {: .bash}
 
@@ -185,11 +185,11 @@ In a new tab (local computer) in your terminal do:
 
 ~~~
 $ mkdir ~/Desktop/bandage/
-$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe/assembly_graph.fastg \
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe/assembly_graph.fastg \
         ~/Desktop/bandage/assembly_graph.fastg
-$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_k21/assembly_graph.fastg \
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_k21/assembly_graph.fastg \
         ~/Desktop/bandage/assembly_graph_k21.fastg
-$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_k87/assembly_graph.fastg \
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_k87/assembly_graph.fastg \
         ~/Desktop/bandage/assembly_graph_k87.fastg
 ~~~
 {: .bash}
@@ -228,9 +228,9 @@ USAGE: nucmer [options] < reference > < Query >
 Align the filtered assembly to the reference: (~/asm_workshop/reference/Ecoli_K12_reference.fasta)
 
 ~~~
-$ nucmer --prefix ecoli_pe \
+$ nucmer --prefix spades_pe \
         ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-        ~/asm_workshop/results/ecoli_pe/contigs_500bp.fasta
+        ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
 ~~~
 {: .bash}
 
@@ -239,7 +239,7 @@ nucmer has aligned all contigs to the reference.
 Run show-tiling on the ecoli_pe.delta file:
 
 ~~~
-$ show-tiling ecoli_pe.delta
+$ show-tiling spades_pe.delta
 ~~~
 {: .bash}
 
@@ -249,19 +249,19 @@ We will use mummerplot to plot the alignments:
 
 ~~~
 $ mummerplot --png --layout --filter -p ecoli_pe \
-        ecoli_pe.delta \
+        spades_pe.delta \
         -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-        -Q ~/asm_workshop/results/ecoli_pe/contigs_500bp.fasta
+        -Q ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
 ~~~
 {: .bash}
 
-A plot file 'ecoli_pe.png' has been created. Download the file to your local computer and inspect the file. 
+A plot file 'spades_pe.png' has been created. Download the file to your local computer and inspect the file. 
 
 In a new tab (local computer) in your terminal do:
 
 ~~~
 $ mkdir ~/Desktop/mummer/
-$ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_pe.png ~/Desktop/mummer/
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe.png ~/Desktop/mummer/
 ~~~
 {: .bash}
 
