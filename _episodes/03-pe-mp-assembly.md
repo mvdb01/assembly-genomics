@@ -25,7 +25,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 
 > ## Exercise
 > 
-> Assemble the trimmed Paired End library together with a Mate-pair library, located at: `~/asm_workshop/data/mp/MP_2.5kb_25x_?.fastq.gz` with SPAdes. Use as output dir `ecoli_pe_mp`.
+> Assemble the trimmed Paired End library together with a Mate-pair library, located at: `~/asm_workshop/data/untrimmed/MP_2.5kb_?.fastq.gz` with SPAdes. Use as output dir `spades_pe_mp`.
 >
 >
 > We have to specify in SPAdes the paired-end (PE) and the mate-pair (MP) library by applying the --pex-x and --mpx-x flags. And also provide the read orientation for the Mate-pair library.
@@ -44,6 +44,8 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> {: .bash}
 >>
 >> with --pe1-1 for read1 and --pe1-2 for read2 we specify the paired-end library.
+>>
+>> 
 >> with --mp1-1 for read1 and --mp1-2 for read2 we specify the mate-pair library.
 >>
 >>
@@ -55,12 +57,12 @@ Due to the library preparation the read orientation of these libraries are diffe
 >>
 >> ~~~
 >> $ spades.py \
->>      --pe1-1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
->>      --pe1-2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>      --mp1-1 ~/asm_workshop/data/mp/MP_2.5kb_25x_1.fastq.gz \
->>      --mp1-2 ~/asm_workshop/data/mp/MP_2.5kb_25x_2.fastq.gz \
+>>      --pe1-1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
+>>      --pe1-2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
+>>      --mp1-1 ~/asm_workshop/data/untrimmed/MP_2.5kb_1.fastq.gz \
+>>      --mp1-2 ~/asm_workshop/data/untrimmed/MP_2.5kb_2.fastq.gz \
 >>      --mp1-rf \
->>      -o ~/asm_workshop/results/ecoli_pe_mp
+>>      -o ~/asm_workshop/results/spades_pe_mp
 >> ~~~
 >> {: .bash}
 >>
@@ -86,8 +88,10 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> 
 >> ~~~
 >> $ quast.py \
->>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
->>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
+>>      ~/asm_workshop/results/spades_pe/contigs.fasta \
+>>      ~/asm_workshop/results/spades_pe/scaffolds.fasta \
+>>      ~/asm_workshop/results/spades_pe_mp/contigs.fasta \
+>>      ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
 >>      -o ~/asm_workshop/results/quast_pe_mp
 >> ~~~
 >> {: .bash}
@@ -95,7 +99,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> In a new tab (local computer) in your terminal do:
 >>
 >> ~~~
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe_mp/report.html ~/Desktop/quast/report_pe_mp.html
+>> $ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/quast_pe_mp/report.html ~/Desktop/quast/report_pe_mp.html
 >> ~~~
 >> {: .bash}
 >> 
@@ -114,7 +118,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> In a new tab (local computer) in your terminal do:
 >>
 >> ~~~
->> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_pe_mp/assembly_graph.fastg \
+>> scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_mp/assembly_graph.fastg \
 >>        ~/Desktop/bandage/assembly_graph_pe_mp.fastg
 >> ~~~
 >> {: .bash}
@@ -145,15 +149,15 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> ## Solution
 >> 
 >> ~~~
->> $ filterFasta_500bp.py -i ~/asm_workshop/results/ecoli_pe_mp/scaffolds.fasta \
->>                        -o ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> $ filterFasta_500bp.py -i ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
+>>                        -o ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
 >> ~~~
 >> {: .bash}
 >> 
 >> Inspect the assembly statistics:
 >> 
 >> ~~~
->> $ assemblyStats.py ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>> $ assemblyStats.py ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
 >> ~~~
 >> {: .bash}
 >> 
@@ -166,11 +170,11 @@ Due to the library preparation the read orientation of these libraries are diffe
 >
 >
 > Align the filtered scaffolds to the reference: (`~/asm_workshop/reference/Ecoli_K12_reference.fasta`).
-> Use as a prefix: `ecoli_pe_mp`.
+> Use as a prefix: `spades_pe_mp`.
 >
 > Make sure you are working in the mummer folder: `~/asm_workshop/results/mummer`
 >
-> Inspect the resulting `ecoli_pe_mp.png` plot.
+> Inspect the resulting `spades_pe_mp.png` plot.
 > Has the mate-pair library improved the assembly?
 >
 >> ## Solution
@@ -186,7 +190,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> ~~~
 >> $ nucmer --prefix ecoli_pe_mp \
 >>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>>          ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
 >> ~~~
 >> {: .bash}
 >>
@@ -195,10 +199,10 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> Use mummerplot to plot the alignments:
 >>
 >> ~~~
->> $ mummerplot --png --layout --filter --prefix ecoli_pe_mp \
->>          ~/asm_workshop/results/mummer/ecoli_pe_mp.delta \
+>> $ mummerplot --png --layout --filter --prefix spades_pe_mp \
+>>          ~/asm_workshop/results/mummer/spades_pe_mp.delta \
 >>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          -Q ~/asm_workshop/results/ecoli_pe_mp/scaffolds_500bp.fasta
+>>          -Q ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
 >> ~~~
 >> {: .bash}
 >>
@@ -207,7 +211,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> In a new tab (local computer) in your terminal do:
 >> 
 >> ~~~
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_pe_mp.png ~/Desktop/mummer/
+>> $ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe_mp.png ~/Desktop/mummer/
 >> ~~~
 >> {: .bash}
 >>
