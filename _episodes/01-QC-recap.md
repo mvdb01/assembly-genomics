@@ -49,7 +49,7 @@ Login to one of the virtual machines (VMs) vmXX-bt-edu.tnw.tudelft.nl (XX= 01 - 
 
 ~~~
 $ source /mnt/linapps/conda3loader
-$ conda activate LM3601
+$ conda activate ASM
 ~~~
 {: .bash}
 
@@ -121,7 +121,7 @@ We learned about fastq files and how to do quality control in the variant callin
 >> Run fastqc on the paired-end library
 >>
 >> ~~~
->> $ fastqc data/untrimmed_fastq/PE_600bp_50x_* -o results/fastqc_untrimmed_reads
+>> $ fastqc data/untrimmed_fastq/PE_600bp_* -o results/fastqc_untrimmed_reads
 >> ~~~
 >> {: .bash}
 >>
@@ -176,10 +176,10 @@ Trimmomatic performs a variety of useful trimming tasks, like removal of bad qua
 >>
 >> ~~~
 >> $ trimmomatic PE \
-        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_50x_1.fastq.gz \
-        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_50x_2.fastq.gz \
-        PE_600bp_50x_1.trim.fastq.gz PE_600bp_50x_1un.trim.fastq.gz \
-        PE_600bp_50x_2.trim.fastq.gz PE_600bp_50x_2un.trim.fastq.gz \
+        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_1.fastq.gz \
+        ~/asm_workshop/data/untrimmed_fastq/PE_600bp_2.fastq.gz \
+        PE_600bp_1.trim.fastq.gz PE_600bp_1un.trim.fastq.gz \
+        PE_600bp_2.trim.fastq.gz PE_600bp_2un.trim.fastq.gz \
         LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:100 
 >> ~~~
 >> {: .bash}
