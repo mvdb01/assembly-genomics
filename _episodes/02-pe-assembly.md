@@ -144,16 +144,16 @@ $ nucmer --prefix spades_pe \
 
 nucmer has aligned all contigs to the reference.
 
-Run show-tiling on the ecoli_pe.delta file:
+Run show-coords on the spades_pe.delta file:
 
 ~~~
-$ show-tiling spades_pe.delta
+$ show-coords spades_pe.delta
 ~~~
 {: .bash}
 
-This gives us the coordinates of the "best" aligned location of the contigs.
+This program parses the delta alignment output of nucmer This gives us the coordinates and displays the coordinates, and other useful information about the alignments.
 
-Running 'show-tiling -h' will provide the usage and explaines the output format:
+Running 'show-coords -h' will provide the usage and explaines the output format:
 
 ~~~
 $ show-tiling -h
@@ -161,60 +161,45 @@ $ show-tiling -h
 {: .bash}
 
 ~~~
-USAGE: show-tiling  [options]  <deltafile>
+USAGE: show-coords  [options]  <deltafile>
 
--a            Describe the tiling path by printing the tab-delimited
-              alignment region coordinates to stdout
--c            Assume the reference sequences are circular, and allow
-              tiled contigs to span the origin
--h            Display help information
--g int        Set maximum gap between clustered alignments [-1, INT_MAX]
-              A value of -1 will represent infinity
-              (nucmer default = 1000)
-              (promer default = -1)
--i float      Set minimum percent identity to tile [0.0, 100.0]
-              (nucmer default = 90.0)
-              (promer default = 55.0)
--l int        Set minimum length contig to report [-1, INT_MAX]
-              A value of -1 will represent infinity
-              (common default = 1)
--p file       Output a pseudo molecule of the query contigs to 'file'
--R            Deal with repetitive contigs by randomly placing them
-              in one of their copy locations (implies -V 0)
--t file       Output a TIGR style contig list of each query sequence
-              that sufficiently matches the reference (non-circular)
--u file       Output the tab-delimited alignment region coordinates
-              of the unusable contigs to 'file'
--v float      Set minimum contig coverage to tile [0.0, 100.0]
-              (nucmer default = 95.0) sum of individual alignments
-              (promer default = 50.0) extent of syntenic region
--V float      Set minimum contig coverage difference [0.0, 100.0]
-              i.e. the difference needed to determine one alignment
-              is 'better' than another alignment
-              (nucmer default = 10.0) sum of individual alignments
-              (promer default = 30.0) extent of syntenic region
--x            Describe the tiling path by printing the XML contig
-              linking information to stdout
+-b          Merges overlapping alignments regardless of match dir
+            or frame and does not display any idenitity information.
+-B          Switch output to btab format
+-c          Include percent coverage information in the output
+-d          Display the alignment direction in the additional
+            FRM columns (default for promer)
+-g          Deprecated option. Please use 'delta-filter' instead
+-h          Display help information
+-H          Do not print the output header
+-I float    Set minimum percent identity to display
+-k          Knockout (do not display) alignments that overlap
+            another alignment in a different frame by more than 50%
+            of their length, AND have a smaller percent similarity
+            or are less than 75% of the size of the other alignment
+            (promer only)
+-l          Include the sequence length information in the output
+-L long     Set minimum alignment length to display
+-o          Annotate maximal alignments between two sequences, i.e.
+            overlaps between reference and query sequences
+-q          Sort output lines by query IDs and coordinates
+-r          Sort output lines by reference IDs and coordinates
+-T          Switch output to tab-delimited format
 
-  Input is the .delta output of the nucmer program, run on very
-similar sequence data, or the .delta output of the promer program,
-run on divergent sequence data.
-  Output is to stdout, and consists of the predicted location of
-each aligning query contig as mapped to the reference sequences.
-These coordinates reference the extent of the entire query contig,
-even when only a certain percentage of the contig was actually
-aligned (unless the -a option is used). **Columns are, start in ref,
-end in ref, distance to next contig, length of this contig, alignment
-coverage, identity, orientation, and ID respectively.**
+  Input is the .delta output of either the "nucmer" or the
+"promer" program passed on the command line.
+  Output is to stdout, and consists of a list of coordinates,
+percent identity, and other useful information regarding the
+alignment data contained in the .delta file used as input.
+  NOTE: No sorting is done by default, therefore the alignments
+will be ordered as found in the <deltafile> input.
 ~~~
 {: .output}
-
-
 
 We will use mummerplot to plot the alignments:
 
 ~~~
-$ mummerplot --png --layout --filter -p ecoli_pe \
+$ mummerplot --png --layout --filter -p spades_pe \
         spades_pe.delta \
         -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
         -Q ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
@@ -227,7 +212,7 @@ In a new tab (local computer) in your terminal do:
 
 ~~~
 $ mkdir ~/Desktop/mummer/
-$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe.png ~/Desktop/mummer/
+$ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/mummer/spades_pe.png ~/Desktop/mummer/
 ~~~
 {: .bash}
 
@@ -247,20 +232,16 @@ In a new tab (local computer) in your terminal do:
 
 ~~~
 $ mkdir ~/Desktop/bandage/
-$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe/assembly_graph.fastg \
-        ~/Desktop/bandage/assembly_graph.fastg
-$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_k21/assembly_graph.fastg \
-        ~/Desktop/bandage/assembly_graph_k21.fastg
-$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_k87/assembly_graph.fastg \
-        ~/Desktop/bandage/assembly_graph_k87.fastg
+$ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/spades_pe/assembly_graph.fastg \
+        ~/Desktop/bandage/spades_pe_graph.fastg
 ~~~
 {: .bash}
 
-start Bandage and load the file assembly_graph.fastg for all three the assemblies one by one
+start Bandage and load the file spades_pe_graph.fastg.
 
 Click on "Draw graph" and save as image (current view)
 
-Do the same for the k21 and k87 assemblies and compare the three assembly graphs
+
 
 
 
