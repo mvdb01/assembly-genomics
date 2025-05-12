@@ -92,77 +92,21 @@ Due to the library preparation the read orientation of these libraries are diffe
 >>      ~/asm_workshop/results/spades_pe/scaffolds.fasta \
 >>      ~/asm_workshop/results/spades_pe_mp/contigs.fasta \
 >>      ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
+>>      -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
 >>      -o ~/asm_workshop/results/quast_pe_mp
 >> ~~~
 >> {: .bash}
 >>
->> In a new tab (local computer) in your terminal do:
+>> Open the generated report.txt file
 >>
 >> ~~~
->> $ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/quast_pe_mp/report.html ~/Desktop/quast/report_pe_mp.html
+>> $ less ~/asm_workshop/results/quast_pe_mp/report.txt
 >> ~~~
 >> {: .bash}
 >> 
 > {: .solution}
 {: .challenge}
 
-# Visualise the assembly graphs with Bandage (Optional)
-
-> ## Exercise
-> 
-> Download the `assembly graph` of the `PE-MP` and compare it with the `assembly graph` of the `PE` assembly.
-> 
->
->> ## Solution
->>
->> In a new tab (local computer) in your terminal do:
->>
->> ~~~
->> scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/spades_pe_mp/assembly_graph.fastg \
->>        ~/Desktop/bandage/assembly_graph_pe_mp.fastg
->> ~~~
->> {: .bash}
->> 
->>
->> start Bandage and load the file assembly_graph_pe_mp.fastg.
->>
->> Click on "Draw graph" and save as image (current view)
->>
->> compare with the `PE` assembly graph.
->>
-> {: .solution}
-{: .challenge}
-
-# Filter PE-MP assembly
-
-
-> ## Exercise
->
-> Filter out the smaller fragments from the `PE-MP` assembly by applying filterFasta_500bp.py like we did with the `PE` assembly. But now we have to use the file `scaffolds.fasta` since the mate-pair library was used for scaffolding.
-> Use `scaffolds_500bp.fasta` as output filename.
->
-> After filtering apply assemblyStats.py on the filtered scaffold file.
->
-> Have we assembled the complete genome of E. coli K12 substr. MG1655?
-> And how many scaffolds do we have?
->
->> ## Solution
->> 
->> ~~~
->> $ filterFasta_500bp.py -i ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
->>                        -o ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
->> ~~~
->> {: .bash}
->> 
->> Inspect the assembly statistics:
->> 
->> ~~~
->> $ assemblyStats.py ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
->> ~~~
->> {: .bash}
->> 
-> {: .solution}
-{: .challenge}
 
 # Scaffold alignment
 
@@ -188,9 +132,9 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> Run nucmer
 >> 
 >> ~~~
->> $ nucmer --prefix ecoli_pe_mp \
+>> $ nucmer --prefix spades_pe_mp \
 >>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
+>>          ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta
 >> ~~~
 >> {: .bash}
 >>
@@ -202,7 +146,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> $ mummerplot --png --layout --filter --prefix spades_pe_mp \
 >>          ~/asm_workshop/results/mummer/spades_pe_mp.delta \
 >>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          -Q ~/asm_workshop/results/spades_pe_mp/scaffolds_500bp.fasta
+>>          -Q ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta
 >> ~~~
 >> {: .bash}
 >>
@@ -211,13 +155,39 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> In a new tab (local computer) in your terminal do:
 >> 
 >> ~~~
->> $ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe_mp.png ~/Desktop/mummer/
+>> $ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/mummer/spades_pe_mp.png ~/Desktop/mummer/
 >> ~~~
 >> {: .bash}
 >>
 > {: .solution}
 {: .challenge}
 
+# Visualise the assembly graphs with Bandage (Optional)
+
+> ## Exercise
+> 
+> Download the `assembly graph` of the `PE-MP` and compare it with the `assembly graph` of the `PE` assembly.
+> 
+>
+>> ## Solution
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/spades_pe_mp/assembly_graph.fastg \
+>>        ~/Desktop/bandage/spades_pe_mp_graph.fastg
+>> ~~~
+>> {: .bash}
+>> 
+>>
+>> start Bandage and load the file assembly_graph_pe_mp.fastg.
+>>
+>> Click on "Draw graph" and save as image (current view)
+>>
+>> compare with the `PE` assembly graph.
+>>
+> {: .solution}
+{: .challenge}
 
 
 
