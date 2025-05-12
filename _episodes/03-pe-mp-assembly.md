@@ -25,7 +25,7 @@ Due to the library preparation the read orientation of these libraries are diffe
 
 > ## Exercise
 > 
-> Assemble the trimmed Paired End library together with a Mate-pair library, located at: `~/asm_workshop/data/untrimmed/MP_2.5kb_?.fastq.gz` with SPAdes. Use as output dir `spades_pe_mp`.
+> Assemble the trimmed Paired End library together with a Mate-pair library, located at: `~/asm_workshop/data/untrimmed_fastq/MP_2.5kb_?.fastq.gz` with SPAdes. Use as output dir `spades_pe_mp`.
 >
 >
 > We have to specify in SPAdes the paired-end (PE) and the mate-pair (MP) library by applying the --pex-x and --mpx-x flags. And also provide the read orientation for the Mate-pair library.
@@ -59,8 +59,8 @@ Due to the library preparation the read orientation of these libraries are diffe
 >> $ spades.py \
 >>      --pe1-1 ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
 >>      --pe1-2 ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
->>      --mp1-1 ~/asm_workshop/data/untrimmed/MP_2.5kb_1.fastq.gz \
->>      --mp1-2 ~/asm_workshop/data/untrimmed/MP_2.5kb_2.fastq.gz \
+>>      --mp1-1 ~/asm_workshop/data/untrimmed_fastq/MP_2.5kb_1.fastq.gz \
+>>      --mp1-2 ~/asm_workshop/data/untrimmed_fastq/MP_2.5kb_2.fastq.gz \
 >>      --mp1-rf \
 >>      -o ~/asm_workshop/results/spades_pe_mp
 >> ~~~
