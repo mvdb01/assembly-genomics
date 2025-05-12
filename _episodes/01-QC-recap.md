@@ -210,7 +210,7 @@ Trimmomatic performs a variety of useful trimming tasks, like removal of bad qua
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_trimmed_reads/*.html ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/fastqc_trimmed_reads/*.html ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
 >> 
