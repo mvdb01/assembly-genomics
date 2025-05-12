@@ -112,6 +112,127 @@ Compare the generated statistics for the two input files:
 <li>Number of N's per 100 kbp</li>
 </ul>
 
+
+# Assembly alignment and visualization
+
+We will use nucmer from the MUMmer package to align the contigs to the reference. [http://mummer.sourceforge.net/](http://mummer.sourceforge.net/)
+
+Create a new folder called mummer in ~/asm_workshop/results/
+
+~~~
+$ mkdir ~/asm_workshop/results/mummer
+~~~
+{: .bash}
+
+Move to this folder
+
+~~~
+$ cd results/mummer
+~~~
+{: .bash}
+
+USAGE: nucmer [options] < reference > < Query >
+
+Align the assembly (contigs.fasta) to the reference: (~/asm_workshop/reference/Ecoli_K12_reference.fasta)
+
+~~~
+$ nucmer --prefix spades_pe \
+        ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+        ~/asm_workshop/results/spades_pe/contigs.fasta
+~~~
+{: .bash}
+
+nucmer has aligned all contigs to the reference.
+
+Run show-tiling on the ecoli_pe.delta file:
+
+~~~
+$ show-tiling spades_pe.delta
+~~~
+{: .bash}
+
+This gives us the coordinates of the "best" aligned location of the contigs.
+
+Running 'show-tiling -h' will provide the usage and explaines the output format:
+
+~~~
+$ show-tiling -h
+~~~
+{: .bash}
+
+~~~
+USAGE: show-tiling  [options]  <deltafile>
+
+-a            Describe the tiling path by printing the tab-delimited
+              alignment region coordinates to stdout
+-c            Assume the reference sequences are circular, and allow
+              tiled contigs to span the origin
+-h            Display help information
+-g int        Set maximum gap between clustered alignments [-1, INT_MAX]
+              A value of -1 will represent infinity
+              (nucmer default = 1000)
+              (promer default = -1)
+-i float      Set minimum percent identity to tile [0.0, 100.0]
+              (nucmer default = 90.0)
+              (promer default = 55.0)
+-l int        Set minimum length contig to report [-1, INT_MAX]
+              A value of -1 will represent infinity
+              (common default = 1)
+-p file       Output a pseudo molecule of the query contigs to 'file'
+-R            Deal with repetitive contigs by randomly placing them
+              in one of their copy locations (implies -V 0)
+-t file       Output a TIGR style contig list of each query sequence
+              that sufficiently matches the reference (non-circular)
+-u file       Output the tab-delimited alignment region coordinates
+              of the unusable contigs to 'file'
+-v float      Set minimum contig coverage to tile [0.0, 100.0]
+              (nucmer default = 95.0) sum of individual alignments
+              (promer default = 50.0) extent of syntenic region
+-V float      Set minimum contig coverage difference [0.0, 100.0]
+              i.e. the difference needed to determine one alignment
+              is 'better' than another alignment
+              (nucmer default = 10.0) sum of individual alignments
+              (promer default = 30.0) extent of syntenic region
+-x            Describe the tiling path by printing the XML contig
+              linking information to stdout
+
+  Input is the .delta output of the nucmer program, run on very
+similar sequence data, or the .delta output of the promer program,
+run on divergent sequence data.
+  Output is to stdout, and consists of the predicted location of
+each aligning query contig as mapped to the reference sequences.
+These coordinates reference the extent of the entire query contig,
+even when only a certain percentage of the contig was actually
+aligned (unless the -a option is used). **Columns are, start in ref,
+end in ref, distance to next contig, length of this contig, alignment
+coverage, identity, orientation, and ID respectively.**
+~~~
+{: .output}
+
+
+
+We will use mummerplot to plot the alignments:
+
+~~~
+$ mummerplot --png --layout --filter -p ecoli_pe \
+        spades_pe.delta \
+        -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
+        -Q ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
+~~~
+{: .bash}
+
+A plot file 'spades_pe.png' has been created. Download the file to your local computer and inspect the file. 
+
+In a new tab (local computer) in your terminal do:
+
+~~~
+$ mkdir ~/Desktop/mummer/
+$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe.png ~/Desktop/mummer/
+~~~
+{: .bash}
+
+What does this tell us about the assembly?
+
 # Visualise the assembly graphs with Bandage (Optional)
 
 Bandage is a program for visualising de novo assembly graphs. By displaying connections which are not present in the contigs file.
@@ -142,69 +263,4 @@ Click on "Draw graph" and save as image (current view)
 Do the same for the k21 and k87 assemblies and compare the three assembly graphs
 
 
-# Assembly alignment
-
-The assembly statistics gives us an idea on the assembly size and so on, but not on the correctness. Can we trust the contigs?
-
-We will use nucmer from the MUMmer package to align the contigs to the reference. [http://mummer.sourceforge.net/](http://mummer.sourceforge.net/)
-
-We are lucky that there is a reference available.
-
-Create a new folder called mummer in ~/asm_workshop/results/
-
-~~~
-$ mkdir ~/asm_workshop/results/mummer
-~~~
-{: .bash}
-
-Move to this folder
-
-~~~
-$ cd results/mummer
-~~~
-{: .bash}
-
-USAGE: nucmer [options] < reference > < Query >
-
-Align the filtered assembly to the reference: (~/asm_workshop/reference/Ecoli_K12_reference.fasta)
-
-~~~
-$ nucmer --prefix spades_pe \
-        ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-        ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
-~~~
-{: .bash}
-
-nucmer has aligned all contigs to the reference.
-
-Run show-tiling on the ecoli_pe.delta file:
-
-~~~
-$ show-tiling spades_pe.delta
-~~~
-{: .bash}
-
-This gives us the coordinates of the "best" aligned location of the contigs
-
-We will use mummerplot to plot the alignments:
-
-~~~
-$ mummerplot --png --layout --filter -p ecoli_pe \
-        spades_pe.delta \
-        -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-        -Q ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
-~~~
-{: .bash}
-
-A plot file 'spades_pe.png' has been created. Download the file to your local computer and inspect the file. 
-
-In a new tab (local computer) in your terminal do:
-
-~~~
-$ mkdir ~/Desktop/mummer/
-$ scp YOUR-NETID@login.delftblue.tudelft.nl:~/asm_workshop/results/mummer/spades_pe.png ~/Desktop/mummer/
-~~~
-{: .bash}
-
-What does this tell us about the assembly?
 
