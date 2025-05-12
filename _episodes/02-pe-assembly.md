@@ -202,7 +202,7 @@ We will use mummerplot to plot the alignments:
 $ mummerplot --png --layout --filter -p spades_pe \
         spades_pe.delta \
         -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-        -Q ~/asm_workshop/results/spades_pe/contigs_500bp.fasta
+        -Q ~/asm_workshop/results/spades_pe/contigs.fasta
 ~~~
 {: .bash}
 
