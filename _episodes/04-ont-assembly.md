@@ -23,7 +23,7 @@ Like we have done for the short reads we are going to do quality control on the 
 
 > ## Exercise
 > 
->  Assess the quality of the long reads from Oxford Nanopre technology (ONT) located in: `~/asm_workshop/data/ont/DRR198814_44x.fastq.gz`. These are single reads with different read lengths. We will use a subset of the data, in this case 44x coverage.  
+>  Assess the quality of the long reads from Oxford Nanopre technology (ONT) located in: `~/asm_workshop/data/ont/DRR198814.fastq.gz`. These are single reads with different read lengths. We will use a subset of the data.  
 >
 >
 > Use as output folder `~/asm_workshop/results/fastqc_ont`  
@@ -47,7 +47,7 @@ Like we have done for the short reads we are going to do quality control on the 
 >> Run fastqc on the ONT library.
 >>
 >> ~~~
->> $ fastqc ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz -o ~/asm_workshop/results/fastqc_ont
+>> $ fastqc ~/asm_workshop/data/ont/DRR198814.fastq.gz -o ~/asm_workshop/results/fastqc_ont
 >> ~~~
 >> {: .bash}
 >>
@@ -55,7 +55,7 @@ Like we have done for the short reads we are going to do quality control on the 
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_ont/DRR198814_44x_fastqc.html \
+>> $ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/fastqc_ont/DRR198814_fastqc.html \
 >>        ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
