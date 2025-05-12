@@ -129,7 +129,7 @@ We learned about fastq files and how to do quality control in the variant callin
 >>
 >> ~~~
 >> $ mkdir ~/Desktop/fastqc_html/
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
+>> $ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
 >> ~~~
 >> {: .bash}
 >> 
