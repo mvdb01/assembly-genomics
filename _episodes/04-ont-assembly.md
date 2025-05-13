@@ -293,19 +293,19 @@ The assembly graph contains the sequence that we need but we have to convert it 
 
 ~~~
 $ awk '/^S/{print ">"$2"\n"$3}' \
-        ~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
-        > ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+        ~/asm_workshop/results/miniasm_ont/ont_polished.gfa \
+        > ~/asm_workshop/results/miniasm_ont/ont_polished.fasta
 ~~~
 {: .bash}
 
 > ## Exercise
 > 
 >
-> Apply `dnadiff` on the `minipolished` assembly: `~/asm_workshop/results/ecoli_ont/ont_polished.fasta `.
+> Apply `dnadiff` on the `minipolished` assembly: `~/asm_workshop/results/miniasm_ont/ont_polished.fasta `.
 >
-> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_ont_minipolish`
+> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/miniasm_ont_minipolish`
 >
-> Compare the average sequence identity from the `ecoli_ont_minipolish` assembly with the `ecoli_ont` sequence identity.
+> Compare the average sequence identity from the `miniasm_ont_minipolish` assembly with the `ecoli_ont` sequence identity.
 > 
 >
 >> ## Solution
@@ -317,16 +317,16 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 >> {: .bash}
 >>
 >> ~~~
->> dnadiff -p ecoli_ont_minipolish \
+>> dnadiff -p miniasm_ont_minipolish \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>            ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>>            ~/asm_workshop/results/miniasm_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >> 
->> Open the report `ecoli_ont_minipolish.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `ecoli_ont.report`
+>> Open the report `miniasm_ont_minipolish.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `spades_ont.report`
 >> 
 >> ~~~
->> $ less ~/asm_workshop/results/mummer/ecoli_ont_minipolish.report
+>> $ less ~/asm_workshop/results/mummer/miniasm_ont_minipolish.report
 >> ~~~
 >> {: .bash}
 >>
@@ -346,7 +346,7 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 
 > ## Exercise
 > 
-> Align the Illumina reads from `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz` and `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz` to the minipolished assembly: `~/asm_workshop/results/ecoli_ont/ont_polished.fasta` as we have done during the Variant Calling sessions.
+> Align the Illumina reads from `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz` and `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz` to the minipolished assembly: `~/asm_workshop/results/miniasm_ont/ont_polished.fasta` as we have done during the Variant Calling sessions.
 > 
 >
 > Use `bwa mem ` to do the mapping and create an `SAM` file
@@ -360,16 +360,16 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 >> First index the polished assembly: 
 >>
 >> ~~~
->> $ bwa index ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>> $ bwa index ~/asm_workshop/results/miniasm_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >>
 >> Map the paired-end Illumina reads to the indexed polished assembly:
 >> ~~~
->> $ bwa mem ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
+>> $ bwa mem ~/asm_workshop/results/miniasm_ont/ont_polished.fasta \
 >>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
 >>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
->>          > ~/asm_workshop/results/ecoli_ont/pe_polished.sam
+>>          > ~/asm_workshop/results/miniasm_ont/pe_polished.sam
 >> ~~~
 >> {: .bash}
 >>
@@ -377,8 +377,8 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 >>
 >> ~~~
 >>  samtools sort -O bam \
->>            -o ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam \
->>            ~/asm_workshop/results/ecoli_ont/pe_polished.sam
+>>            -o ~/asm_workshop/results/miniasm_ont/pe_polished.sorted.bam \
+>>            ~/asm_workshop/results/miniasm_ont/pe_polished.sam
 >> ~~~
 >> {: .bash}
 >> 
@@ -391,7 +391,7 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 Before we can apply `pilon` we first have to `index` the alignment file.
 
 ~~~
-$ samtools index ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam
+$ samtools index ~/asm_workshop/results/miniasm_ont/pe_polished.sorted.bam
 ~~~
 {: .bash}
 
@@ -400,9 +400,9 @@ Now we are ready to run pilon:
 ~~~
 $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
         --threads 4 \
-        --genome ~/asm_workshop/results/ecoli_ont/ont_polished.fasta \
-        --frags ~/asm_workshop/results/ecoli_ont/pe_polished.sorted.bam \
-        --output ~/asm_workshop/results/ecoli_ont/ont_pilon_polished \
+        --genome ~/asm_workshop/results/miniasm_ont/ont_polished.fasta \
+        --frags ~/asm_workshop/results/miniasm_ont/pe_polished.sorted.bam \
+        --output ~/asm_workshop/results/miniasm_ont/ont_pilon_polished \
         --changes --fix all
 ~~~
 {: .bash}
@@ -413,11 +413,11 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 > ## Exercise
 > 
 >
-> Apply `dnadiff` on the `pilon polished` assembly: `~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta `.
+> Apply `dnadiff` on the `pilon polished` assembly: `~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta `.
 >
-> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_ont_pilon`
+> Use the same `mummer` output folder and call the output file: `~/asm_workshop/results/mummer/miniasm_ont_pilon`
 >
-> Compare the average sequence identity from the `ecoli_ont_pilon` assembly with the `ecoli_ont` and `ecoli_ont_minipolish` sequence identity.
+> Compare the average sequence identity from the `miniasm_ont_pilon` assembly with the `miniasm_ont` and `miniasm_ont_minipolish` sequence identity.
 > 
 >
 >> ## Solution
@@ -430,16 +430,16 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> {: .bash}
 >>
 >> ~~~
->> dnadiff -p ecoli_ont_pilon \
+>> dnadiff -p miniasm_ont_pilon \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>            ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta
+>>            ~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta
 >> ~~~
 >> {: .bash}
 >> 
 >> Open the report `ecoli_ont_pilon.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `ecoli_ont_minipolish.report`
 >> 
 >> ~~~
->> $ less ~/asm_workshop/results/mummer/ecoli_ont_pilon.report
+>> $ less ~/asm_workshop/results/mummer/miniasm_ont_pilon.report
 >> ~~~
 >> {: .bash}
 >>
@@ -467,18 +467,17 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> 
 >> ~~~
 >> $ quast.py \
->>      ~/asm_workshop/results/ecoli_pe/contigs.fasta \
->>      ~/asm_workshop/results/ecoli_pe_mp/contigs.fasta \
->>      ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta \
+>>      ~/asm_workshop/results/spades_pe/contigs.fasta \
+>>      ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
+>>      ~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta \
 >>      -o ~/asm_workshop/results/quast_pe_mp_ont
 >> ~~~
 >> {: .bash}
 >>
->> In a new tab (local computer) in your terminal do:
+>> Open the file ~/asm_workshop/results/quast_pe_mp_ont/report.txt with less.
 >>
 >> ~~~
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/quast_pe_mp_ont/report.html \
-        ~/Desktop/quast/report_pe_mp_ont.html
+>> $ less ~/asm_workshop/results/quast_pe_mp_ont/report.txt 
 >> ~~~
 >> {: .bash}
 >> 
@@ -498,7 +497,7 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> In a new tab (local computer) in your terminal do:
 >>
 >> ~~~
->> scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/ecoli_ont/ont_polished.gfa \
+>> scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/miniasm_ont/ont_polished.gfa \
 >>        ~/Desktop/bandage/
 >> ~~~
 >> {: .bash}
@@ -522,11 +521,11 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >
 >
 > Align the polished ONT assembly to the reference: (`~/asm_workshop/reference/Ecoli_K12_reference.fasta`).
-> Use as a prefix: `ecoli_ont`.
+> Use as a prefix: `miniasm_ont`.
 >
 > Make sure you are working in the mummer folder: `~/asm_workshop/results/mummer`
 >
-> Inspect the resulting `ecoli_ont.png` plot.
+> Inspect the resulting `miniasm_ont.png` plot.
 > Has the long reads improved the assembly?
 >
 >> ## Solution
@@ -540,9 +539,9 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> Run nucmer
 >> 
 >> ~~~
->> $ nucmer --prefix ecoli_ont \
+>> $ nucmer --prefix miniasm_ont \
 >>          ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>>          ~/asm_workshop/results/miniasm_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >>
@@ -551,19 +550,19 @@ $ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
 >> Use mummerplot to plot the alignments:
 >>
 >> ~~~
->> $ mummerplot --png --layout --filter --prefix ecoli_ont \
->>          ~/asm_workshop/results/mummer/ecoli_ont.delta \
+>> $ mummerplot --png --layout --filter --prefix miniasm_ont \
+>>          ~/asm_workshop/results/mummer/miniasm_ont.delta \
 >>          -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>          -Q ~/asm_workshop/results/ecoli_ont/ont_polished.fasta
+>>          -Q ~/asm_workshop/results/miniasm_ont/ont_polished.fasta
 >> ~~~
 >> {: .bash}
 >>
->> A plot file 'ecoli_ont.png' has been created. Download the file to your local computer and inspect the file. 
+>> A plot file 'miniasm_ont.png' has been created. Download the file to your local computer and inspect the file. 
 >> 
 >> In a new tab (local computer) in your terminal do:
 >> 
 >> ~~~
->> $ scp YOUR-NETID@student-linux.tudelft.nl:~/asm_workshop/results/mummer/ecoli_ont.png ~/Desktop/mummer/
+>> $ scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/mummer/miniasm_ont.png ~/Desktop/mummer/
 >> ~~~
 >> {: .bash}
 >>
