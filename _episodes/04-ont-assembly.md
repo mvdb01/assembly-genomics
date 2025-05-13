@@ -147,10 +147,10 @@ S Seqgment line format:
 
 Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format:
 
->identifier1
-sequence1
->identifier2
-sequence2
+|>identifier1|
+|sequence1|
+|>identifier2|
+|sequence2|
 
 We will apply the linux tool `awk`, which does pattern scanning and processing in text files, for extracting the identifier and sequence from the graph and print it to fasta format.
 
@@ -163,11 +163,11 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 ~~~
 {: .bash}
 
-/^S/ = capture all lines that start with 'S'.
-">" = print the char '>'
-$2 = print the content of variable $2, which is the identifier.
-"\n" = start a new line.
-$3 = print the content of variable $3, which is the sequence
+|/^S/|capture all lines that start with 'S'|
+|">"|print the char '>'|
+|$2|print the content of variable $2, which is the identifier|
+|"\n"|start a new line|
+|$3|print the content of variable $3, which is the sequence|
 
 
 ## Assembly Error rate
