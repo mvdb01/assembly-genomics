@@ -346,7 +346,7 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 
 > ## Exercise
 > 
-> Align the Illumina reads from `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz` and `~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz` to the minipolished assembly: `~/asm_workshop/results/miniasm_ont/ont_polished.fasta` as we have done during the Variant Calling sessions.
+> Align the Illumina reads from `~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz` and `~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz` to the minipolished assembly: `~/asm_workshop/results/miniasm_ont/ont_polished.fasta` as we have done during the Variant Calling sessions.
 > 
 >
 > Use `bwa mem ` to do the mapping and create an `SAM` file
@@ -367,8 +367,8 @@ Pilon requires as input a fasta file of the draft assembly and the aligned Illum
 >> Map the paired-end Illumina reads to the indexed polished assembly:
 >> ~~~
 >> $ bwa mem ~/asm_workshop/results/miniasm_ont/ont_polished.fasta \
->>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_1.trim.fastq.gz \
->>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_50x_2.trim.fastq.gz \
+>>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_1.trim.fastq.gz \
+>>          ~/asm_workshop/data/trimmed_fastq/PE_600bp_2.trim.fastq.gz \
 >>          > ~/asm_workshop/results/miniasm_ont/pe_polished.sam
 >> ~~~
 >> {: .bash}
