@@ -91,3 +91,60 @@ $ prokka --outdir ~/asm_workshop/results/prokka \
          ~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta
 ~~~
 {: .bash}
+
+Prokka outputs a lot of files in ~/asm_workshop/results/prokka.
+Below we find a description of each file.
+
+## Output Files
+
+| Extension | Description |
+| --------- | ----------- |
+| .gff | This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV. |
+| .gbk | This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence. |
+| .fna | Nucleotide FASTA file of the input contig sequences. |
+| .faa | Protein FASTA file of the translated CDS sequences. |
+| .ffn | Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA) |
+| .sqn | An ASN1 format "Sequin" file for submission to Genbank. It needs to be edited to set the correct taxonomy, authors, related publication etc. |
+| .fsa | Nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file. It is mostly the same as the .fna file, but with extra Sequin tags in the sequence description lines. |
+| .tbl | Feature Table file, used by "tbl2asn" to create the .sqn file. |
+| .err | Unacceptable annotations - the NCBI discrepancy report. |
+| .log | Contains all the output that Prokka produced during its run. This is a record of what settings you used, even if the --quiet option was enabled. |
+| .txt | Statistics relating to the annotated features found. |
+| .tsv | Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product |
+
+
+
+First check the .txt file which gives information on the found features.
+~~~
+$ less ~/asm_workshop/results/prokka/Ecoli_K12.txt
+~~~
+{: .bash}
+
+Now we can compare the number of found genes with our annotated reference ~/asm_workshop/reference/Ecoli_K12_reference.gff
+
+We will use AWK to select a feature and 'wc -l' to count them.
+
+First we wll count the number of annotated genes in the reference.
+In the GFF file the third column stores the feature type. We are searching for the feature 'gene'.
+
+~~~
+$ cat ~/asm_workshop/reference/Ecoli_K12_reference.gff | awk '$3=="gene"' | wc -l
+~~~
+{: .bash}
+
+Compare the number of found genes in the reference with those found in our annotated assembly.
+Can you explain the difference?
+
+Now we can do the same for the rRNA's and tRNA's.
+~~~
+$ cat ~/asm_workshop/reference/Ecoli_K12_reference.gff | awk '$3=="rRNA"' | wc -l
+~~~
+{: .bash}
+
+~~~
+$ cat ~/asm_workshop/reference/Ecoli_K12_reference.gff | awk '$3=="tRNA"' | wc -l
+~~~
+{: .bash}
+
+
+
