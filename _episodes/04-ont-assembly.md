@@ -484,37 +484,6 @@ $ pilon -Xmx2G  \
 > {: .solution}
 {: .challenge}
 
-
-# Visualise the assembly graphs with Bandage (Optional)
-
-> ## Exercise
-> 
-> Download the `polished assembly graph` of the `ONT` assembly and compare it with the `assembly graph` of the `PE` and `PE-MP` assemblies.
-> 
->
->> ## Solution
->>
->> In a new tab (local computer) in your terminal do:
->>
->> ~~~
->> scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/miniasm_ont/ont_polished.gfa \
->>        ~/Desktop/bandage/
->> ~~~
->> {: .bash}
->> 
->>
->> start Bandage and load the file ont_polished.gfa.
->>
->> Click on "Draw graph" and save as image (current view)
->>
->> compare with the `PE` `PE-MP` assembly graphs.
->>
-> {: .solution}
-{: .challenge}
-
-
-
-
 # Assembly alignment
 
 > ## Exercise
@@ -568,4 +537,33 @@ $ pilon -Xmx2G  \
 >>
 > {: .solution}
 {: .challenge}
+
+# Visualise the assembly graphs with Bandage (Optional)
+
+> ## Exercise
+> 
+> Download the `polished assembly graph` of the `ONT` assembly and compare it with the `assembly graph` of the `PE` and `PE-MP` assemblies.
+> 
+>
+>> ## Solution
+>>
+>> In a new tab (local computer) in your terminal do:
+>>
+>> ~~~
+>> scp YOUR-NETID@vm0X-bt-edu.tnw.tudelft.nl:~/asm_workshop/results/miniasm_ont/ont_polished.gfa \
+>>        ~/Desktop/bandage/
+>> ~~~
+>> {: .bash}
+>> 
+>>
+>> start Bandage and load the file ont_polished.gfa.
+>>
+>> Click on "Draw graph" and save as image (current view)
+>>
+>> compare with the `PE` `PE-MP` assembly graphs.
+>>
+> {: .solution}
+{: .challenge}
+
+
 
