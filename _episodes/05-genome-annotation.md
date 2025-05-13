@@ -76,6 +76,9 @@ Computation:
 ~~~
 {: .output}
 
+
+Now we can run prokka with ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta as input and --outdir ~/asm_workshop/results/prokka as output directory and set the options as much as we know from the organism to get a complete as posible annotation.
+
 ~~~
 $ prokka --outdir ~/asm_workshop/results/prokka \
          --prefix Ecoli_K12 \
@@ -84,7 +87,7 @@ $ prokka --outdir ~/asm_workshop/results/prokka \
          --species coli \
          --strain K12 \
          --kingdom Bacteria \
-	       --usegenus \
-	       ~/asm_workshop/results/ecoli_ont/ont_pilon_polished.fasta
+         --usegenus \
+         ~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta
 ~~~
 {: .bash}
