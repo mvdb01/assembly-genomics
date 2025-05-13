@@ -305,7 +305,7 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
 >
 > Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/miniasm_ont_minipolish`
 >
-> Compare the average sequence identity from the `miniasm_ont_minipolish` assembly with the `ecoli_ont` sequence identity.
+> Compare the average sequence identity from the `miniasm_ont_minipolish` assembly with the `miniasm_ont` sequence identity.
 > 
 >
 >> ## Solution
