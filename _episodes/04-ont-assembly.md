@@ -469,6 +469,7 @@ $ pilon -Xmx2G  \
 >>      ~/asm_workshop/results/spades_pe/contigs.fasta \
 >>      ~/asm_workshop/results/spades_pe_mp/scaffolds.fasta \
 >>      ~/asm_workshop/results/miniasm_ont/ont_pilon_polished.fasta \
+>>      -R ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
 >>      -o ~/asm_workshop/results/quast_pe_mp_ont
 >> ~~~
 >> {: .bash}
