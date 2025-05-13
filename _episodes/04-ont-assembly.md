@@ -85,7 +85,7 @@ $ cd ~/asm_workshop
 And create an output folder for the Nanopore assembly results.
 
 ~~~
-$ mkdir ~/asm_workshop/results/ecoli_ont
+$ mkdir ~/asm_workshop/results/miniasm_ont
 ~~~
 {: .bash}
 
@@ -105,9 +105,9 @@ For all-vs-all mapping we use the raw ont reads as target `and` as query. As pre
 
 ~~~
 $  minimap2 -x ava-ont \
-            ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            > ~/asm_workshop/results/ecoli_ont/ont_overlaps.paf
+            ~/asm_workshop/data/ont/DRR198814.fastq.gz \
+            ~/asm_workshop/data/ont/DRR198814.fastq.gz \
+            > ~/asm_workshop/results/miniasm_ont/ont_overlaps.paf
 ~~~
 {: .bash}
 
@@ -118,22 +118,22 @@ The all-vs-all alignments (`ont_overlaps.paf`) will be used as input for `minias
 Besides the all-vs-all `PAF` file we also have to provide the raw ONT reads.
 
 ~~~
-$ miniasm -f ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            ~/asm_workshop/results/ecoli_ont/ont_overlaps.paf \
-            > ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa
+$ miniasm -f ~/asm_workshop/data/ont/DRR198814.fastq.gz \
+            ~/asm_workshop/results/miniasm_ont/ont_overlaps.paf \
+            > ~/asm_workshop/results/miniasm_ont/ont_assembly.gfa
 ~~~
 {: .bash}
 
 ## Consensus sequence
 
-Now we have to extract the consence sequence from the `assembly graph` and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
+Now we have to extract the consensus sequence from the `assembly graph` and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
 
 The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
 
 ~~~
 $ awk '/^S/{print ">"$2"\n"$3}' \
-        ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa \
-        > ~/asm_workshop/results/ecoli_ont/ont_assembly.fasta
+        ~/asm_workshop/results/miniasm_ont/ont_assembly.gfa \
+        > ~/asm_workshop/results/miniasm_ont/ont_assembly.fasta
 ~~~
 {: .bash}
 
@@ -159,7 +159,7 @@ USAGE: dnadiff  [options]  <reference>  <query>
 
 We will use as a reference: `~/asm_workshop/reference/Ecoli_K12_reference.fasta`
 
-And the ONT assembly as query: `~/asm_workshop/results/ecoli_ont/ont/assmbly.fasta`
+And the ONT assembly as query: `~/asm_workshop/results/miniasm_ont/ont/assmbly.fasta`
 
 Move to the earlier created Mummer folder:
 
@@ -172,9 +172,9 @@ $ cd ~/asm_workshop/results/mummer
 Run dnadiff with the -p option to control the output file name.
 
 ~~~
-$ dnadiff -p ecoli_ont \
+$ dnadiff -p miniasm_ont \
             ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-            ~/asm_workshop/results/ecoli_ont/ont_assmbly.fasta
+            ~/asm_workshop/results/miniasm_ont/ont_assmbly.fasta
 ~~~
 {: .bash}
 
@@ -190,11 +190,11 @@ $ less ~/asm_workshop/results/mummer/ecoli_ont.report
 > We have looked into the sequence similarity of Noisy long read assembly but not for Illumina based assemblies.
 >
 >
-> Apply `dnadiff` on the `paired-end` SPAdes assembly we did: `~/asm_workshop/results/ecoli_pe/contigs.fasta `.
+> Apply `dnadiff` on the `paired-end` SPAdes assembly we did: `~/asm_workshop/results/spades_pe/contigs.fasta `.
 >
-> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/ecoli_pe`
+> Use the same `mummer` output folder and call the output file ecoli_pe: `~/asm_workshop/results/mummer/spades_pe`
 >
-> Compare the average sequence identity from the `ecoli_pe` assembly with the `ecoli_ont` sequence identity.
+> Compare the average sequence identity from the `spades_pe` assembly with the `miniasm_ont` sequence identity.
 > 
 >
 >> ## Solution
@@ -202,16 +202,16 @@ $ less ~/asm_workshop/results/mummer/ecoli_ont.report
 >> run dnadiff with: 
 >>
 >> ~~~
->> dnadiff -p ecoli_pe \
+>> dnadiff -p spades_pe \
 >>            ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
->>            ~/asm_workshop/results/ecoli_pe/contigs.fasta
+>>            ~/asm_workshop/results/spades_pe/contigs.fasta
 >> ~~~
 >> {: .bash}
 >> 
->> Open the report `ecoli_pe.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `ecoli_ont.report`
+>> Open the report `spades_pe.report`and compare the average sequence identity `(AvgIdentity)` under the `1-to-1 alignments` with the from the ont assembly report: `spades_ont.report`
 >> 
 >> ~~~
->> $ less ~/asm_workshop/results/mummer/ecoli_pe.report
+>> $ less ~/asm_workshop/results/mummer/spades_pe.report
 >> ~~~
 >> {: .bash}
 >>
