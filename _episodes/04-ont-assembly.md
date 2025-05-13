@@ -145,15 +145,16 @@ S Seqgment line format:
 |--------|----------|--------|
 |  S     |identifier|Sequence|
 
-Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format.
+Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format:
+
+>identifier1
+sequence1
+>identifier2
+sequence2
 
 We will apply the linux tool `awk`, which does pattern scanning and processing in text files, for extracting the identifier and sequence from the graph and print it to fasta format.
 
 The identifier of the sequence on a segment line is stored in the second column and can be captured by AWK with the variable $2. The sequence beloning to that identifier can be found on the third column and can be captured by AWK with the variable $3.
-
-
-
-and starts printing for every occurrence the sequence identifiers, which can be found in column 2 `$2` in the gfa file. Fasta files starts with the `>` symbol in every header  in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
 
 ~~~
 $ awk '/^S/{print ">"$2"\n"$3}' \
@@ -161,6 +162,13 @@ $ awk '/^S/{print ">"$2"\n"$3}' \
         > ~/asm_workshop/results/miniasm_ont/ont_assembly.fasta
 ~~~
 {: .bash}
+
+/^S/ = capture all lines that start with 'S'.
+">" = print the char '>'
+$2 = print the content of variable $2, which is the identifier.
+"\n" = start a new line.
+$3 = print the content of variable $3, which is the sequence
+
 
 ## Assembly Error rate
 
