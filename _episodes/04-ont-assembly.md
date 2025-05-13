@@ -140,8 +140,10 @@ Miniasm stores the assembly graph in GFA format. This is a tab-delimited text fo
 The assembly graph stores the assembled sequences that we are interested in on the Segment line:
 
 S Seqgment line format:
-Column1<TAB>Column2<TAB>Column3
-S<TAB>identifier<TAB>Sequence
+
+|Column 1|Column 2    |Column 3  |
+|--------|------------|----------|
+|  S     | identifier | Sequence |
 
 Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format.
 
