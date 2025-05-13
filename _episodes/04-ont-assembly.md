@@ -89,7 +89,7 @@ $ mkdir ~/asm_workshop/results/miniasm_ont
 ~~~
 {: .bash}
 
-## minimap2
+## Step 1: minimap2
 
 The first step is to run minimap for the all-vs-all mapping.
 
@@ -111,7 +111,7 @@ $  minimap2 -x ava-ont \
 ~~~
 {: .bash}
 
-## miniasm
+## Step 2: miniasm
 
 The all-vs-all alignments (`ont_overlaps.paf`) will be used as input for `miniasm` that will build a assembly graph in GFA format.
 
@@ -124,7 +124,7 @@ $ miniasm -f ~/asm_workshop/data/ont/DRR198814.fastq.gz \
 ~~~
 {: .bash}
 
-## Consensus sequence
+## Step 3: Consensus sequence
 
 Now we have to extract the consensus sequence from the `assembly graph` and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
 
