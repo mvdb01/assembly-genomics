@@ -398,8 +398,7 @@ $ samtools index ~/asm_workshop/results/miniasm_ont/pe_polished.sorted.bam
 Now we are ready to run pilon:
 
 ~~~
-$ java -Xmx2G -jar /mnt/linapps/share/java/pilon-1.18.jar \
-        --threads 4 \
+$ pilon -Xmx2G  \
         --genome ~/asm_workshop/results/miniasm_ont/ont_polished.fasta \
         --frags ~/asm_workshop/results/miniasm_ont/pe_polished.sorted.bam \
         --output ~/asm_workshop/results/miniasm_ont/ont_pilon_polished \
