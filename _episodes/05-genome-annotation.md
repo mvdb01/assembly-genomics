@@ -26,6 +26,8 @@ $ prokka -h
 {: .bash}
 
 ~~~
+Usage:
+  prokka [options] <contigs.fasta>
 General:
   --help            This help
   --version         Print version and exit
