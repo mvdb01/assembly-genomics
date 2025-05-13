@@ -174,7 +174,7 @@ Run dnadiff with the -p option to control the output file name.
 ~~~
 $ dnadiff -p miniasm_ont \
             ~/asm_workshop/reference/Ecoli_K12_reference.fasta \
-            ~/asm_workshop/results/miniasm_ont/ont_assmbly.fasta
+            ~/asm_workshop/results/miniasm_ont/ont_assembly.fasta
 ~~~
 {: .bash}
 
