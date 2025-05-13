@@ -141,9 +141,9 @@ The assembly graph stores the assembled sequences that we are interested in on t
 
 S Seqgment line format:
 
-|Column 1|Column 2    |Column 3  |
-|--------|------------|----------|
-|  S     | identifier | Sequence |
+|Column 1|Column 2  |Column 3|
+|--------|----------|--------|
+|  S     |identifier|Sequence|
 
 Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format.
 
