@@ -279,9 +279,9 @@ Minipolish finishes by doing one more read-to-assembly alignment, this time not 
 To be able to run Minipolish we need to provide it with the raw reads and the assembly graph from the miniasm output and redirect this to a new now pollished assembly graph:
 
 ~~~
-$ minipolish ~/asm_workshop/data/ont/DRR198814_44x.fastq.gz \
-            ~/asm_workshop/results/ecoli_ont/ont_assembly.gfa \
-            > ~/asm_workshop/results/ecoli_ont/ont_polished.gfa
+$ minipolish ~/asm_workshop/data/ont/DRR198814.fastq.gz \
+            ~/asm_workshop/results/miniasm_ont/ont_assembly.gfa \
+            > ~/asm_workshop/results/miniasm_ont/ont_polished.gfa
 ~~~
 {: .bash}
 
