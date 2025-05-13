@@ -126,9 +126,32 @@ $ miniasm -f ~/asm_workshop/data/ont/DRR198814.fastq.gz \
 
 ## Step 3: Consensus sequence
 
-Now we have to extract the consensus sequence from the `assembly graph` and for that we have to use `awk`, which is a linux tool that does pattern scanning and processing in text files.
+Miniasm stores the assembly graph in GFA format. This is a tab-delimited text format for describing a set of sequences and their overlap. The first field of each line identifies the type of the line:
 
-The assembly graph contains the sequence that we need but we have to convert it to fasta format. AWK is searching for lines that start with `S` (`/^S/`) and starts printing the sequence identifiers `$2` with the fasta header symbol `>` in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
+<ul>
+  <li>Header lines start with H</li>
+  <li>Seqment lines start with S</li>
+  <li>Link lines with L</li>
+  <li>Jump lines with J</li>
+  <li>Path line with P</li>
+  <li>Walk lines with W</li>
+</ul>
+
+The assembly graph stores the assembled sequences that we are interested in on the Segment line:
+
+S Seqgment line format:
+Column1<TAB>Column2<TAB>Column3
+S<TAB>identifier<TAB>Sequence
+
+Next step is extracting the identifier and the consensus sequence from the `assembly graph` and convert it to multi-fasta format.
+
+We will apply the linux tool `awk`, which does pattern scanning and processing in text files, for extracting the identifier and sequence from the graph and print it to fasta format.
+
+The identifier of the sequence on a segment line is stored in the second column and can be captured by AWK with the variable $2. The sequence beloning to that identifier can be found on the third column and can be captured by AWK with the variable $3.
+
+
+
+and starts printing for every occurrence the sequence identifiers, which can be found in column 2 `$2` in the gfa file. Fasta files starts with the `>` symbol in every header  in front of it. On the next line `\n` the actual sequence will be printed `$3`. 
 
 ~~~
 $ awk '/^S/{print ">"$2"\n"$3}' \
