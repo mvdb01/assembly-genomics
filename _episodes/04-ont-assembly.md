@@ -44,10 +44,10 @@ Like we have done for the short reads we are going to do quality control on the 
 >> ~~~
 >> {: .bash}
 >>
->> Run fastqc on the ONT library.
+>> Run fastqc on the ONT library. Use fastqc with option -t 2 (--threads 2; To speed up the process and to prevend OutOfMemoryError).
 >>
 >> ~~~
->> $ fastqc ~/asm_workshop/data/ont/DRR198814.fastq.gz -o ~/asm_workshop/results/fastqc_ont
+>> $ fastqc -t 2 ~/asm_workshop/data/ont/DRR198814.fastq.gz -o ~/asm_workshop/results/fastqc_ont
 >> ~~~
 >> {: .bash}
 >>
